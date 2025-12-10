@@ -18,7 +18,7 @@ public class MainWindowViewModel : ReactiveObject
     public MainWindowViewModel()
     {
         // Toggle EF or SP here
-        string conn = "Server=localhost;Database=AppDB;User Id=sa;Password='1753*dbcd frontend';TrustServerCertificate=True;";
+        string conn = "Server=localhost;Database=AppDB;User Id=sa;Password=PASSWORD;TrustServerCertificate=True;"; // change password
         _service = ServiceFactory.Create(useEf: true, connectionString: conn);
 
         LoadUsersCommand = ReactiveCommand.Create(LoadUsers);
