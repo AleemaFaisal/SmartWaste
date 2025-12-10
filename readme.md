@@ -73,6 +73,12 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
 ## Running Instructions
 
+### Setup
+1. Add your SQLServer password to the ```_connectionString``` in ```MainWindowViewModel.cs```.
+2. Run ```sql/db.sql``` to create the db.
+
+### Build and Run
+In the root folder, run:
 ```
 dotnet clean
 dotnet restore
