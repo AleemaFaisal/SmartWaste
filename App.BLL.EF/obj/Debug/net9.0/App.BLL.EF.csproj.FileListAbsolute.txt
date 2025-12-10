@@ -1,0 +1,15 @@
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/bin/Debug/net9.0/App.BLL.EF.deps.json
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/bin/Debug/net9.0/App.BLL.EF.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/bin/Debug/net9.0/App.BLL.EF.pdb
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/bin/Debug/net9.0/App.Core.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/bin/Debug/net9.0/App.Core.pdb
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.csproj.AssemblyReference.cache
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.GeneratedMSBuildEditorConfig.editorconfig
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.AssemblyInfoInputs.cache
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.AssemblyInfo.cs
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.csproj.CoreCompileInputs.cache
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.csproj.Up2Date
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/refint/App.BLL.EF.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/App.BLL.EF.pdb
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/Debug/net9.0/ref/App.BLL.EF.dll

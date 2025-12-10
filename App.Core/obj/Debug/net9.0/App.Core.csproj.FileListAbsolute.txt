@@ -1,0 +1,11 @@
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/bin/Debug/net9.0/App.Core.deps.json
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/bin/Debug/net9.0/App.Core.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/bin/Debug/net9.0/App.Core.pdb
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/App.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/App.Core.AssemblyInfoInputs.cache
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/App.Core.AssemblyInfo.cs
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/App.Core.csproj.CoreCompileInputs.cache
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/App.Core.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/refint/App.Core.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/App.Core.pdb
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/Debug/net9.0/ref/App.Core.dll
