@@ -1,13 +1,19 @@
-﻿using App.Core;
+using App.Core;
 using App.BLL.EF;
 using App.BLL.SP;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Factory;
 
+/// <summary>
+/// Factory for creating service implementations (EF or SP) at runtime
+/// </summary>
 public static class ServiceFactory
 {
-    public static IService Create(bool useEf, string connectionString)
+    /// <summary>
+    /// Create Authentication Service
+    /// </summary>
+    public static IAuthenticationService CreateAuthService(bool useEf, string connectionString)
     {
         if (useEf)
         {
@@ -15,11 +21,68 @@ public static class ServiceFactory
                 .UseSqlServer(connectionString)
                 .Options;
 
-            return new EfService(new AppDbContext(options));
+            return new EfAuthenticationService(new AppDbContext(options));
         }
         else
         {
-            return new SpService(connectionString);
+            return new SpAuthenticationService(connectionString);
+        }
+    }
+
+    /// <summary>
+    /// Create Citizen Service
+    /// </summary>
+    public static ICitizenService CreateCitizenService(bool useEf, string connectionString)
+    {
+        if (useEf)
+        {
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlServer(connectionString)
+                .Options;
+
+            return new EfCitizenService(new AppDbContext(options));
+        }
+        else
+        {
+            return new SpCitizenService(connectionString);
+        }
+    }
+
+    /// <summary>
+    /// Create Operator Service
+    /// </summary>
+    public static IOperatorService CreateOperatorService(bool useEf, string connectionString)
+    {
+        if (useEf)
+        {
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlServer(connectionString)
+                .Options;
+
+            return new EfOperatorService(new AppDbContext(options));
+        }
+        else
+        {
+            return new SpOperatorService(connectionString);
+        }
+    }
+
+    /// <summary>
+    /// Create Government Service
+    /// </summary>
+    public static IGovernmentService CreateGovernmentService(bool useEf, string connectionString)
+    {
+        if (useEf)
+        {
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlServer(connectionString)
+                .Options;
+
+            return new EfGovernmentService(new AppDbContext(options));
+        }
+        else
+        {
+            return new SpGovernmentService(connectionString);
         }
     }
 }
