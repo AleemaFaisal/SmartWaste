@@ -79,11 +79,27 @@ public class LoginViewModel : ViewModelBase
 
             if (result.Success)
             {
-                StatusMessage = "Login successful! Redirecting...";
+                // Check if user is a citizen (only citizen portal is implemented)
+                if (result.RoleID == 2) // Citizen
+                {
+                    StatusMessage = "Login successful! Redirecting...";
 
-                // Navigate to appropriate dashboard
-                var navigationService = new NavigationService(_connectionString);
-                navigationService.NavigateToDashboard(result, UseEntityFramework, loginWindow);
+                    // Navigate to citizen dashboard
+                    var navigationService = new NavigationService(_connectionString);
+                    navigationService.NavigateToDashboard(result, UseEntityFramework, loginWindow);
+                }
+                else if (result.RoleID == 1) // Government
+                {
+                    ErrorMessage = "Government portal is not yet implemented. Please use the Citizen portal.";
+                }
+                else if (result.RoleID == 3) // Operator
+                {
+                    ErrorMessage = "Operator portal is not yet implemented. Please use the Citizen portal.";
+                }
+                else
+                {
+                    ErrorMessage = "Unknown role. Only Citizen portal is currently available.";
+                }
             }
             else
             {

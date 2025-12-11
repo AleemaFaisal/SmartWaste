@@ -112,16 +112,20 @@
                     Padding="10"
                     Margin="0 20 0 0">
                 <StackPanel>
-                    <TextBlock Text="Test Credentials:"
+                    <TextBlock Text="Test Credentials (Citizen Portal Only):"
                                FontWeight="SemiBold"
                                FontSize="12"
                                Margin="0 0 0 5"/>
                     <TextBlock FontSize="11" Foreground="#424242">
-                        <Run Text="Citizen: 35201-0000001-0 / password1"/>
+                        <Run Text="CNIC: 35201-0000001-0"/>
                         <LineBreak/>
-                        <Run Text="Operator: 42000-0300001-0 / oppass1"/>
-                        <LineBreak/>
-                        <Run Text="Admin: (Create manually)"/>
+                        <Run Text="Password: password1"/>
+                    </TextBlock>
+                    <TextBlock FontSize="10"
+                               Foreground="#666666"
+                               Margin="0 5 0 0"
+                               FontStyle="Italic">
+                        <Run Text="Note: Operator and Government portals are not yet implemented."/>
                     </TextBlock>
                 </StackPanel>
             </Border>

@@ -87,6 +87,8 @@ public class CitizenDashboardViewModel : ViewModelBase
         _service = service;
         _citizenID = citizenID;
 
+        System.Diagnostics.Debug.WriteLine($"CitizenDashboardViewModel created for CitizenID: {citizenID}");
+
         // Initialize commands
         LoadProfileCommand = ReactiveCommand.CreateFromTask(LoadProfileAsync);
         LoadListingsCommand = ReactiveCommand.CreateFromTask(LoadListingsAsync);
@@ -146,23 +148,36 @@ public class CitizenDashboardViewModel : ViewModelBase
     {
         try
         {
-            var listings = await _service.GetMyListingsAsync(_citizenID);
-            MyListings.Clear();
-            foreach (var listing in listings.OrderByDescending(l => l.CreatedAt))
-                MyListings.Add(listing);
+            System.Diagnostics.Debug.WriteLine($"LoadListingsAsync called for CitizenID: {_citizenID}");
 
-            // Debug: Show count
-            System.Diagnostics.Debug.WriteLine($"Loaded {listings.Count} listings for citizen {_citizenID}");
+            var listings = await _service.GetMyListingsAsync(_citizenID);
+
+            System.Diagnostics.Debug.WriteLine($"Received {listings.Count} listings from service");
+
+            MyListings.Clear();
+
+            foreach (var listing in listings.OrderByDescending(l => l.CreatedAt))
+            {
+                System.Diagnostics.Debug.WriteLine($"Adding listing: ID={listing.ListingID}, Category={listing.CategoryName}, Weight={listing.Weight}");
+                MyListings.Add(listing);
+            }
+
+            System.Diagnostics.Debug.WriteLine($"MyListings.Count after adding: {MyListings.Count}");
 
             if (listings.Count == 0)
             {
                 SuccessMessage = "No listings found. Create your first listing in the 'Sell Waste' tab!";
+            }
+            else
+            {
+                ClearMessages();
             }
         }
         catch (Exception ex)
         {
             ErrorMessage = $"Failed to load listings: {ex.Message}";
             System.Diagnostics.Debug.WriteLine($"Error loading listings: {ex}");
+            System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
         }
     }
 
