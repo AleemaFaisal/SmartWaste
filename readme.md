@@ -206,6 +206,7 @@ public class SpCitizenService : ICitizenService
 - Bind commands: `Command="{Binding CommandName}"`
 - Bind properties: `Text="{Binding PropertyName}"`
 
+
 ### 3. Error Handling
 
 Always use try-catch in ViewModels:
@@ -228,6 +229,7 @@ private async Task LoadDataAsync()
         IsBusy = false;
     }
 }
+
 ```
 
 
