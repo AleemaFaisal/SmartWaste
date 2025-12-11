@@ -17,3 +17,23 @@
 /Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/obj/Debug/net9.0/refint/App.Factory.dll
 /Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/obj/Debug/net9.0/App.Factory.pdb
 /Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/obj/Debug/net9.0/ref/App.Factory.dll
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.Factory.deps.json
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.Factory.dll
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.Factory.pdb
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.BLL.EF.dll
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.BLL.SP.dll
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.Core.dll
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.Core.pdb
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.BLL.EF.pdb
+E:\db-project\SmartWaste\App.Factory\bin\Debug\net9.0\App.BLL.SP.pdb
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.csproj.AssemblyReference.cache
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.GeneratedMSBuildEditorConfig.editorconfig
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.AssemblyInfoInputs.cache
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.AssemblyInfo.cs
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.csproj.CoreCompileInputs.cache
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.sourcelink.json
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Fact.32CA3E51.Up2Date
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.dll
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\refint\App.Factory.dll
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\App.Factory.pdb
+E:\db-project\SmartWaste\App.Factory\obj\Debug\net9.0\ref\App.Factory.dll

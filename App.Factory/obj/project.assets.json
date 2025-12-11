@@ -1936,19 +1936,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/apple/.nuget/packages/": {}
+    "C:\\Users\\Hp\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj",
+      "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
       "projectName": "App.Factory",
-      "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj",
-      "packagesPath": "/Users/apple/.nuget/packages/",
-      "outputPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/obj/",
+      "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
+      "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+      "outputPath": "E:\\db-project\\SmartWaste\\App.Factory\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/apple/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -1960,14 +1960,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
-              "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj"
+            "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+              "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
             },
-            "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
-              "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj"
+            "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+              "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
             },
-            "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj": {
-              "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj"
+            "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+              "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
             }
           }
         }
@@ -2003,7 +2003,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

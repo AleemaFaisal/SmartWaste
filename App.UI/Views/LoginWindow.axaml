@@ -1,0 +1,131 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:App.UI.ViewModels"
+        x:Class="App.UI.Views.LoginWindow"
+        Width="450" Height="550"
+        MinWidth="450" MinHeight="550"
+        MaxWidth="450" MaxHeight="600"
+        Title="SmartWaste - Login"
+        WindowStartupLocation="CenterScreen"
+        CanResize="True">
+
+    <Design.DataContext>
+        <vm:LoginViewModel />
+    </Design.DataContext>
+
+    <Panel>
+        <!-- Main Content -->
+        <StackPanel Margin="40" x:DataType="vm:LoginViewModel" VerticalAlignment="Center">
+
+            <!-- Header -->
+            <TextBlock Text="SmartWaste Management"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0 0 0 10"/>
+
+            <TextBlock Text="Login to your account"
+                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       Foreground="Gray"
+                       Margin="0 0 0 30"/>
+
+            <!-- CNIC Input -->
+            <TextBlock Text="CNIC"
+                       FontWeight="SemiBold"
+                       Margin="0 0 0 5"/>
+            <TextBox Text="{Binding CNIC}"
+                     Watermark="xxxxx-xxxxxxx-x"
+                     Height="40"
+                     Margin="0 0 0 15"/>
+
+            <!-- Password Input -->
+            <TextBlock Text="Password"
+                       FontWeight="SemiBold"
+                       Margin="0 0 0 5"/>
+            <TextBox Text="{Binding Password}"
+                     PasswordChar="*"
+                     Watermark="Enter your password"
+                     Height="40"
+                     Margin="0 0 0 15"/>
+
+            <!-- Data Access Method -->
+            <TextBlock Text="Data Access Method"
+                       FontWeight="SemiBold"
+                       Margin="0 10 0 5"/>
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
+                <RadioButton Content="Entity Framework (LINQ)"
+                             IsChecked="{Binding UseEntityFramework}"
+                             Margin="0 0 20 0"/>
+                <RadioButton Content="Stored Procedures"
+                             IsChecked="{Binding !UseEntityFramework}"/>
+            </StackPanel>
+
+            <!-- Login Button -->
+            <Button Content="Login"
+                    Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding $parent[Window]}"
+                    Height="45"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Background="#2E7D32"
+                    Foreground="White"
+                    Margin="0 10 0 15"/>
+
+            <!-- Status Message -->
+            <TextBlock Text="{Binding StatusMessage}"
+                       HorizontalAlignment="Center"
+                       Foreground="{Binding ErrorMessage, Converter={x:Static ObjectConverters.IsNull}, ConverterParameter=Green|Red}"
+                       FontWeight="Medium"
+                       TextWrapping="Wrap"
+                       Margin="0 10 0 0"/>
+
+            <!-- Error Message -->
+            <Border Background="#FFEBEE"
+                    BorderBrush="#EF5350"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Margin="0 10 0 0"
+                    IsVisible="{Binding ErrorMessage, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="#C62828"
+                           TextWrapping="Wrap"
+                           FontSize="12"/>
+            </Border>
+
+            <!-- Loading Indicator -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0 15 0 0"
+                        IsVisible="{Binding IsBusy}">
+                <TextBlock Text="Processing..." FontStyle="Italic" Foreground="Gray"/>
+            </StackPanel>
+
+            <!-- Test Credentials Info -->
+            <Border Background="#E3F2FD"
+                    BorderBrush="#2196F3"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Margin="0 20 0 0">
+                <StackPanel>
+                    <TextBlock Text="Test Credentials:"
+                               FontWeight="SemiBold"
+                               FontSize="12"
+                               Margin="0 0 0 5"/>
+                    <TextBlock FontSize="11" Foreground="#424242">
+                        <Run Text="Citizen: 35201-0000001-0 / password1"/>
+                        <LineBreak/>
+                        <Run Text="Operator: 42000-0300001-0 / oppass1"/>
+                        <LineBreak/>
+                        <Run Text="Admin: (Create manually)"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </Panel>
+</Window>

@@ -13,23 +13,29 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.9" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.9" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.9" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.9" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Include="Avalonia.Diagnostics" Version="11.3.9">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
+    <!-- Configuration management -->
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\App.Core\App.Core.csproj" />
     <ProjectReference Include="..\App.Factory\App.Factory.csproj" />
+    <ProjectReference Include="..\App.BLL.EF\App.BLL.EF.csproj" />
+    <ProjectReference Include="..\App.BLL.SP\App.BLL.SP.csproj" />
   </ItemGroup>
 
-<ItemGroup>
-  <ProjectReference Include="..\App.Core\App.Core.csproj" />
-  <ProjectReference Include="..\App.Factory\App.Factory.csproj" />
-  <ProjectReference Include="..\App.BLL.EF\App.BLL.EF.csproj" />
-  <ProjectReference Include="..\App.BLL.SP\App.BLL.SP.csproj" />
-</ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

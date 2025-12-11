@@ -2,22 +2,29 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using App.UI.Views;
-namespace App.UI;
 
-public partial class App : Application
+namespace App.UI
 {
-    public override void Initialize()
+    public partial class App : Application
     {
-        AvaloniaXamlLoader.Load(this);
-    }
-
-    public override void OnFrameworkInitializationCompleted()
-    {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        public override void Initialize()
         {
-            desktop.MainWindow = new MainWindow();
+            AvaloniaXamlLoader.Load(this);
         }
 
-        base.OnFrameworkInitializationCompleted();
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                // Use full login window with MVVM pattern
+                var loginViewModel = new ViewModels.LoginViewModel();
+                desktop.MainWindow = new LoginWindow
+                {
+                    DataContext = loginViewModel
+                };
+            }
+
+            base.OnFrameworkInitializationCompleted();
+        }
     }
 }
