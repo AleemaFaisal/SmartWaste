@@ -189,9 +189,9 @@ public class OperatorDashboardViewModel : ViewModelBase
                 WarehouseID = OperatorDetails.WarehouseID.Value
             };
 
-            var collectionID = await _service.CollectWasteAsync(collectionDto);
+            var result = await _service.CollectWasteAsync(collectionDto);
 
-            if (collectionID > 0)
+            if (result.Success && result.CollectionID > 0)
             {
                 // Reset form
                 SelectedListingID = 0;

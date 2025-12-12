@@ -219,6 +219,9 @@ public class AppDbContext : DbContext
                 .WithMany(c => c.WasteListings)
                 .HasForeignKey(e => e.CategoryID)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            // Ignore Collections navigation - Collection.ListingID is not a true FK relationship
+            entity.Ignore(e => e.Collections);
         });
 
         modelBuilder.Entity<TransactionRecord>(entity =>
@@ -255,6 +258,8 @@ public class AppDbContext : DbContext
             entity.HasKey(e => new { e.CollectionID, e.CollectedDate });
             entity.Property(e => e.CollectionID).UseIdentityColumn();
             entity.Property(e => e.OperatorID).HasMaxLength(15).IsRequired();
+            entity.Property(e => e.ListingID).IsRequired(); // Explicit column - not a navigation property
+            entity.Property(e => e.WarehouseID).IsRequired();
             entity.Property(e => e.CollectedWeight).HasColumnType("decimal(10,2)").IsRequired();
             entity.Property(e => e.PhotoProof).HasMaxLength(255);
             entity.Property(e => e.IsVerified).HasDefaultValue(false);

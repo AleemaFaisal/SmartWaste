@@ -108,8 +108,9 @@ public class SpOperatorService : IOperatorService
         return points;
     }
 
-    public async Task<int> CollectWasteAsync(CollectionDto dto)
+    public async Task<CollectionResultDto> CollectWasteAsync(CollectionDto dto)
     {
+        Console.WriteLine($"[SP] CollectWasteAsync - Using STORED PROCEDURE: sp_PerformCollection");
         using var conn = new SqlConnection(_connectionString);
         using var cmd = new SqlCommand("WasteManagement.sp_PerformCollection", conn)
         {
@@ -127,29 +128,53 @@ public class SpOperatorService : IOperatorService
         };
         cmd.Parameters.Add(collectionIDParam);
 
+        var transactionIDParam = new SqlParameter("@TransactionID", SqlDbType.Int)
+        {
+            Direction = ParameterDirection.Output
+        };
+        cmd.Parameters.Add(transactionIDParam);
+
+        var paymentAmountParam = new SqlParameter("@PaymentAmount", SqlDbType.Decimal)
+        {
+            Direction = ParameterDirection.Output,
+            Precision = 10,
+            Scale = 2
+        };
+        cmd.Parameters.Add(paymentAmountParam);
+
+        var verificationCodeParam = new SqlParameter("@VerificationCode", SqlDbType.VarChar, 50)
+        {
+            Direction = ParameterDirection.Output
+        };
+        cmd.Parameters.Add(verificationCodeParam);
+
         await conn.OpenAsync();
         await cmd.ExecuteNonQueryAsync();
 
-        return (int)collectionIDParam.Value;
+        var collectionId = (int)collectionIDParam.Value;
+        var transactionId = transactionIDParam.Value == DBNull.Value ? (int?)null : (int)transactionIDParam.Value;
+        var paymentAmount = paymentAmountParam.Value == DBNull.Value ? (decimal?)null : (decimal)paymentAmountParam.Value;
+        var verificationCode = verificationCodeParam.Value == DBNull.Value ? null : (string)verificationCodeParam.Value;
+        
+        return new CollectionResultDto
+        {
+            Success = true,
+            CollectionID = collectionId,
+            TransactionID = transactionId,
+            PaymentAmount = paymentAmount,
+            VerificationCode = verificationCode,
+            Message = "Collection recorded successfully"
+        };
     }
 
     public async Task<bool> DepositWasteAsync(WarehouseDepositDto dto)
     {
+        Console.WriteLine($"[SP] DepositWasteAsync - Using STORED PROCEDURE: sp_WarehouseDeposit");
         using var conn = new SqlConnection(_connectionString);
-        using var cmd = new SqlCommand(
-            @"IF EXISTS (SELECT 1 FROM WasteManagement.WarehouseStock
-                         WHERE WarehouseID = @WarehouseID AND CategoryID = @CategoryID)
-              BEGIN
-                  UPDATE WasteManagement.WarehouseStock
-                  SET CurrentWeight = CurrentWeight + @Quantity, LastUpdated = GETDATE()
-                  WHERE WarehouseID = @WarehouseID AND CategoryID = @CategoryID;
-              END
-              ELSE
-              BEGIN
-                  INSERT INTO WasteManagement.WarehouseStock (WarehouseID, CategoryID, CurrentWeight, LastUpdated)
-                  VALUES (@WarehouseID, @CategoryID, @Quantity, GETDATE());
-              END",
-            conn);
+        using var cmd = new SqlCommand("WasteManagement.sp_WarehouseDeposit", conn)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
 
         cmd.Parameters.AddWithValue("@WarehouseID", dto.WarehouseID);
         cmd.Parameters.AddWithValue("@CategoryID", dto.CategoryID);
@@ -226,5 +251,77 @@ public class SpOperatorService : IOperatorService
             TotalCollectedWeight = reader.GetDecimal(reader.GetOrdinal("TotalCollectedWeight")),
             TotalCollectedAmount = reader.GetDecimal(reader.GetOrdinal("TotalCollectedAmount"))
         };
+    }
+
+    // ============================================
+    // COMPLAINTS
+    // ============================================
+    public async Task<List<ActiveComplaintView>> GetMyComplaintsAsync(string operatorID)
+    {
+        Console.WriteLine($"[SP] GetMyComplaintsAsync - Using STORED PROCEDURE: sp_GetOperatorComplaints");
+        var complaints = new List<ActiveComplaintView>();
+
+        using var conn = new SqlConnection(_connectionString);
+        using var cmd = new SqlCommand("WasteManagement.sp_GetOperatorComplaints", conn)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
+
+        cmd.Parameters.AddWithValue("@OperatorID", operatorID);
+
+        await conn.OpenAsync();
+        using var reader = await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            complaints.Add(new ActiveComplaintView
+            {
+                ComplaintID = reader.GetInt32(reader.GetOrdinal("ComplaintID")),
+                ComplaintType = reader.GetString(reader.GetOrdinal("ComplaintType")),
+                Description = reader.GetString(reader.GetOrdinal("Description")),
+                Status = reader.GetString(reader.GetOrdinal("Status")),
+                CreatedAt = reader.GetDateTime(reader.GetOrdinal("CreatedAt")),
+                CitizenID = reader.GetString(reader.GetOrdinal("CitizenID")),
+                CitizenName = reader.GetString(reader.GetOrdinal("CitizenName")),
+                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                OperatorID = reader.IsDBNull(reader.GetOrdinal("OperatorID"))
+                    ? null
+                    : reader.GetString(reader.GetOrdinal("OperatorID")),
+                OperatorName = reader.IsDBNull(reader.GetOrdinal("OperatorName"))
+                    ? null
+                    : reader.GetString(reader.GetOrdinal("OperatorName")),
+                RouteName = reader.IsDBNull(reader.GetOrdinal("RouteName"))
+                    ? null
+                    : reader.GetString(reader.GetOrdinal("RouteName")),
+                AreaName = reader.GetString(reader.GetOrdinal("AreaName")),
+                DaysOpen = reader.GetInt32(reader.GetOrdinal("DaysOpen"))
+            });
+        }
+
+        return complaints;
+    }
+
+    public async Task<bool> UpdateComplaintStatusAsync(int complaintID, string newStatus)
+    {
+        using var conn = new SqlConnection(_connectionString);
+        using var cmd = new SqlCommand("WasteManagement.sp_UpdateComplaintStatus", conn)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
+
+        cmd.Parameters.AddWithValue("@ComplaintID", complaintID);
+        cmd.Parameters.AddWithValue("@NewStatus", newStatus);
+        
+        var rowsAffectedParam = new SqlParameter("@RowsAffected", SqlDbType.Int)
+        {
+            Direction = ParameterDirection.Output
+        };
+        cmd.Parameters.Add(rowsAffectedParam);
+
+        await conn.OpenAsync();
+        await cmd.ExecuteNonQueryAsync();
+        
+        int rowsAffected = (int)rowsAffectedParam.Value;
+        return rowsAffected > 0;
     }
 }

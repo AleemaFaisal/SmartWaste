@@ -120,7 +120,7 @@ GO
 -- Core Tables
 CREATE TABLE WasteManagement.Users (
     UserID VARCHAR(15) PRIMARY KEY,
-    PasswordHash VARCHAR(255) NOT NULL,
+    PasswordHash VARCHAR(64) NOT NULL,
     RoleID INT NOT NULL,
     CreatedAt DATETIME DEFAULT GETDATE(),
     CONSTRAINT FK_Users_Role FOREIGN KEY (RoleID) REFERENCES WasteManagement.UserRole(RoleID),

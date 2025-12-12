@@ -28,9 +28,9 @@ public interface IOperatorService
     // ============================================
 
     /// <summary>
-    /// Collect waste from a listing
+    /// Collect waste from a listing and process payment
     /// </summary>
-    Task<int> CollectWasteAsync(CollectionDto dto);
+    Task<CollectionResultDto> CollectWasteAsync(CollectionDto dto);
 
     // ============================================
     // WAREHOUSE OPERATIONS
@@ -54,4 +54,18 @@ public interface IOperatorService
     /// Get performance statistics for operator
     /// </summary>
     Task<OperatorPerformanceView?> GetMyPerformanceAsync(string operatorID);
+
+    // ============================================
+    // COMPLAINTS
+    // ============================================
+
+    /// <summary>
+    /// Get active complaints assigned to operator
+    /// </summary>
+    Task<List<ActiveComplaintView>> GetMyComplaintsAsync(string operatorID);
+
+    /// <summary>
+    /// Update complaint status (operator can mark as In Progress or Resolved)
+    /// </summary>
+    Task<bool> UpdateComplaintStatusAsync(int complaintID, string newStatus);
 }

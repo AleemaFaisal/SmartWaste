@@ -1,342 +1,133 @@
-# SmartWaste Management System
+# SmartWaste Platform
 
-A waste management system with role-based dashboards for Citizens, Operators, and Government officials. Built with .NET 9, Avalonia UI, and SQL Server.
+SmartWaste is a role-aware waste management solution that now runs on a **.NET 9 backend** exposed through `App.WebAPI` and a **React (Vite + TypeScript) frontend** in `smartwaste-react`. The domain libraries (`App.Core`, `App.BLL.EF`, `App.BLL.SP`, `App.Factory`) remain unchanged and are reused by both the Web API and any legacy frontends.
 
-## 🏗️ Project Structure
+## Architecture at a Glance
+
+- **Database**: SQL Server schema, functions, triggers, and procedures defined in `sql` and the comprehensive seed script `../group28_p2.sql`.
+- **Domain Layer**: `App.Core` (models and contracts) plus `App.BLL.EF` and `App.BLL.SP` (Entity Framework vs. stored procedure services). `App.Factory` selects the strategy at runtime.
+- **Backend API**: `App.WebAPI` (ASP.NET Core) exposes controllers for authentication and citizen workflows, with CORS configured for the React client.
+- **Frontend**: `smartwaste-react` (Vite + React + TypeScript) delivers role dashboards in the browser. Operator and admin experiences will be implemented here.
+- **Legacy Client**: `App.UI` (Avalonia) remains for reference but is no longer the primary interface.
+
+## Project Structure
 
 ```
 SmartWaste/
-├── App.Core/              # Shared models, DTOs, interfaces
-├── App.BLL.EF/           # Entity Framework implementation
-├── App.BLL.SP/           # Stored Procedures implementation
-├── App.Factory/          # Service factory (switches between EF/SP)
-├── App.UI/               # Avalonia UI (MVVM)
-│   ├── ViewModels/       # View Models
-│   ├── Views/            # XAML Views
-│   └── Services/         # UI Services (Navigation, etc.)
-└── sql/                  # Database scripts
+├── App.Core/              # Shared models, DTOs, contracts
+├── App.BLL.EF/           # Entity Framework services
+├── App.BLL.SP/           # Stored procedure services
+├── App.Factory/          # ServiceFactory switches EF/SP
+├── App.WebAPI/           # ASP.NET Core Web API (primary backend)
+│   ├── Controllers/      # Auth + Citizen endpoints (Operator coming soon)
+│   └── Program.cs        # Hosting, DI, CORS
+├── smartwaste-react/     # React frontend (Vite, TypeScript)
+│   ├── src/pages/        # Login, Citizen, Operator, Admin views
+│   ├── src/components/   # Shared layout/components
+│   └── src/styles/       # Global theme and layout CSS
+├── App.UI/               # Legacy Avalonia client (reference only)
+├── sql/                  # Baseline SQL scripts
+└── README_REACT.md       # Migration notes used during the switch
 ```
 
-## 🚀 Getting Started
+## Database Setup
 
-### Prerequisites
-- .NET 9 SDK
-- SQL Server (localhost)
-- Visual Studio 2022 or VS Code
-
-### Database Setup
-
-1. **Run database creation script:**
-   ```sql
-   -- In SQL Server Management Studio
-   -- File: sql/db.sql
+1. Provision SQL Server locally (native install or Docker) or connect to an existing instance.
+2. Execute the comprehensive schema and seed script `../group28_p2.sql` to deploy roles, waste listings, stored procedures, views, and sample data. This script supersedes older fragments in `sql/`.
+3. Update the connection string in `App.WebAPI/appsettings.json`:
+   ```json
+   {
+     "ConnectionStrings": {
+       "SmartWasteDB": "Server=localhost;Database=SmartWasteDB;User Id=sa;Password=YOUR_PASSWORD;TrustServerCertificate=True;"
+     }
+   }
    ```
+4. Choose execution mode (Entity Framework vs. stored procedures) via `AppSettings.UseEntityFramework` in the same file.
 
-2. **Run additional stored procedures:**
-   ```sql
-   -- File: sql/additional-stored-procedures.sql
-   ```
+## Running the Stack
 
-### Run the Application
-
+Start the API in one terminal:
 ```bash
-cd App.UI
+cd App.WebAPI
+dotnet restore
 dotnet run
 ```
 
-**Test Credentials:**
+Start the React client in another terminal:
+```bash
+cd smartwaste-react
+npm install
+npm run dev
+```
+
+The API listens on `http://localhost:5000`; the React dev server runs on `http://localhost:5173`. Keep both shells open during development.
+
+### Test Credentials
+
 - Citizen: `35201-0000001-0` / `password1`
 - Operator: `42000-0300001-0` / `oppass1`
 
-## 👥 Team Guide
+## Backend API Surface
 
-### Working on Features
+Current controllers in `App.WebAPI`:
 
-#### 🟦 Citizen Dashboard
-**files:**
-- `App.UI/ViewModels/CitizenDashboardViewModel.cs`
-- `App.UI/Views/CitizenDashboardWindow.axaml`
-- `App.UI/Views/CitizenDashboardWindow.axaml.cs`
-- `App.Core/ICitizenService.cs`
-- `App.BLL.EF/EfCitizenService.cs`
-- `App.BLL.SP/SpCitizenService.cs`
+- **AuthController** (`api/auth/login`): Authenticates by CNIC/password and returns role metadata. The optional `X-Use-EF` header overrides EF/SP selection.
+- **CitizenController** (`api/citizen/*`): Profile, listings, transactions, categories, pricing, and registration endpoints that use the shared services through `ServiceFactory`.
 
-**Tasks:**
-- View waste listings
-- Create new waste listings
-- View transaction history
-- File complaints
-- View profile
+Planned additions:
 
-#### 🟩 Operator Dashboard
-**files:**
-- `App.UI/ViewModels/OperatorDashboardViewModel.cs`
-- `App.UI/Views/OperatorDashboardWindow.axaml`
-- `App.UI/Views/OperatorDashboardWindow.axaml.cs`
-- `App.Core/IOperatorService.cs`
-- `App.BLL.EF/EfOperatorService.cs`
-- `App.BLL.SP/SpOperatorService.cs`
+- **OperatorController**: exposes pickup queues, collection completion, route assignments, performance stats, and complaint handling aligned with the SQL assets listed below.
 
-**tasks:**
-- View assigned collection points
-- Perform waste collection
-- Update collection status
-- View collection history
-- View route information
+## Frontend Modules (`smartwaste-react/src`)
 
-#### 🟨 Government Dashboard
-**files:**
-- `App.UI/ViewModels/GovernmentDashboardViewModel.cs`
-- `App.UI/Views/GovernmentDashboardWindow.axaml`
-- `App.UI/Views/GovernmentDashboardWindow.axaml.cs`
-- `App.Core/IGovernmentService.cs`
-- `App.BLL.EF/EfGovernmentService.cs`
-- `App.BLL.SP/SpGovernmentService.cs`
+- `App.tsx`: Handles routing between login and role dashboards.
+- `pages/LoginPage.tsx`: CNIC/password login with role selection cards.
+- `pages/CitizenPortalPage.tsx`: Sample citizen dashboard (awaits real API wiring).
+- `pages/OperatorPortalPage.tsx`: Layout scaffold for operator workflow; functionality to be implemented.
+- `components/AppLayout.tsx`: Shared chrome with logout button.
+- `styles/global.css`: Cream/forest-green theme, responsive cards, and error states.
 
-**tasks:**
-- View analytics and reports
-- Manage operators
-- Manage categories and prices
-- View warehouse inventory
-- Handle complaints
+## Operator Portal Backlog
 
-### Common Files (Don't Modify Without Discussion)
-- `App.Core/Models.cs` - Database models
-- `App.Core/DTOs.cs` - Data transfer objects
-- `App.Factory/ServiceFactory.cs` - Service creation
-- `App.UI/App.axaml.cs` - Application startup
-- `App.UI/Services/NavigationService.cs` - Navigation logic
+`../group28_p2.sql` documents the backend expectations for operator capabilities. Key database objects to integrate when implementing `OperatorController` (API) and wiring up `OperatorPortalPage.tsx` (UI):
 
-## 📝 Coding Standards
+- **Views**
+  - `WasteManagement.vw_OperatorCollectionPoints`: pending listings, citizen contact details, and verification codes per operator route.
+  - `WasteManagement.vw_OperatorPerformance`: totals for pickups, collected weight, and amounts per operator.
+  - `WasteManagement.vw_ActiveComplaints`: open complaints, route metadata, and assignment status.
+- **Stored Procedures**
+  - `WasteManagement.sp_OperatorPerformance`: KPI output (collections, complaints, qualitative rating).
+  - `WasteManagement.sp_AssignOperatorToRoute`: enforces one-operator-per-route and persists warehouse assignments.
+  - `WasteManagement.sp_CreateOperator` and `WasteManagement.sp_DeactivateOperator`: manage operator lifecycle and availability.
+- **Tables and Triggers**
+  - `WasteManagement.Collection` with trigger `trg_Collection_UpdateStatus`: inserting a collection automatically marks the related listing as collected.
+  - `WasteManagement.WarehouseStock` with trigger `trg_WarehouseStock_UpdateInventory`: keeps warehouse utilisation in sync after drop-offs.
+  - `WasteManagement.TransactionRecord`: links collections to payouts and verification codes.
 
-### 1. Naming Conventions
+Recommended feature slices for the operator portal:
 
-**ViewModels:**
-```csharp
-public class CitizenDashboardViewModel : ViewModelBase
-{
-    private string _propertyName;
+1. **Dashboard summary**: fetch KPI cards via `sp_OperatorPerformance` or `vw_OperatorPerformance`.
+2. **Pickup queue**: list route-specific pending listings from `vw_OperatorCollectionPoints` with filtering and search.
+3. **Confirm collection**: POST to a new API endpoint that inserts into `Collection` (and optionally updates `WarehouseStock`), letting triggers update listing status.
+4. **Route and warehouse info**: display assignments from the `Operator`, `Route`, and `Warehouse` tables, updating via `sp_AssignOperatorToRoute` when needed.
+5. **Complaint follow-up**: surface unresolved complaints filtered by operator from `vw_ActiveComplaints` with status update actions.
 
-    public string PropertyName
-    {
-        get => _propertyName;
-        set => this.RaiseAndSetIfChanged(ref _propertyName, value);
-    }
+## Development Tips
 
-    public ReactiveCommand<Unit, Unit> CommandName { get; }
-}
-```
+- **Switch EF vs. Stored Procedures**: toggle `AppSettings.UseEntityFramework` and, if needed, pass `X-Use-EF` from the React client for per-request overrides.
+- **CORS**: `App.WebAPI` allows `http://localhost:3000` and `http://localhost:5173`; add production origins before deployment.
+- **Building for production**:
+  ```bash
+  cd smartwaste-react
+  npm run build
+  ```
+  Vite outputs to `smartwaste-react/dist`. Serve it via any static host or configure ASP.NET to serve the bundle.
+- **Testing**: run `dotnet test` once operator services are added; use Jest/React Testing Library for frontend logic as features grow.
 
-**Services (Interface):**
-```csharp
-public interface ICitizenService
-{
-    Task<List<WasteListing>> GetListingsAsync(string citizenID);
-    Task<bool> CreateListingAsync(CreateListingDto dto);
-}
-```
+## Legacy Avalonia Client
 
-**Services (EF Implementation):**
-```csharp
-public class EfCitizenService : ICitizenService
-{
-    private readonly AppDbContext _db;
+`App.UI` and its view models remain for reference but are no longer the default UI. Avoid modifying these files unless maintaining the desktop client is explicitly required.
 
-    public EfCitizenService(AppDbContext db)
-    {
-        _db = db;
-    }
+---
 
-    public async Task<List<WasteListing>> GetListingsAsync(string citizenID)
-    {
-        return await _db.WasteListings
-            .Where(w => w.CitizenID == citizenID)
-            .ToListAsync();
-    }
-}
-```
-
-**Services (SP Implementation):**
-```csharp
-public class SpCitizenService : ICitizenService
-{
-    private readonly string _connectionString;
-
-    public SpCitizenService(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
-
-    public async Task<List<WasteListing>> GetListingsAsync(string citizenID)
-    {
-        using var conn = new SqlConnection(_connectionString);
-        using var cmd = new SqlCommand("WasteManagement.sp_GetCitizenListings", conn);
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@CitizenID", citizenID);
-
-        // Execute and map results
-    }
-}
-```
-
-### 2. XAML Conventions
-
-**Window Structure:**
-```xml
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:App.UI.ViewModels"
-        x:Class="App.UI.Views.CitizenDashboardWindow"
-        Width="1200" Height="800"
-        Title="SmartWaste - Citizen Dashboard"
-        WindowStartupLocation="CenterScreen">
-
-    <Design.DataContext>
-        <vm:CitizenDashboardViewModel />
-    </Design.DataContext>
-
-    <DockPanel x:DataType="vm:CitizenDashboardViewModel">
-        <!-- Your UI here -->
-    </DockPanel>
-</Window>
-```
-
-**Binding:**
-- Use `x:DataType` for compiled bindings
-- Bind commands: `Command="{Binding CommandName}"`
-- Bind properties: `Text="{Binding PropertyName}"`
-
-
-### 3. Error Handling
-
-Always use try-catch in ViewModels:
-```csharp
-private async Task LoadDataAsync()
-{
-    try
-    {
-        IsBusy = true;
-        ErrorMessage = null;
-
-        // Your code here
-    }
-    catch (Exception ex)
-    {
-        ErrorMessage = $"Error: {ex.Message}";
-    }
-    finally
-    {
-        IsBusy = false;
-    }
-}
-
-```
-
-
-1. **Build successfully:**
-   ```bash
-   dotnet build
-   ```
-
-2. **Test both EF and SP modes:**
-   - Toggle the radio buttons in login
-   - Test your feature with both options
-
-3. **Test error scenarios:**
-   - What if API fails?
-   - What if user enters invalid data?
-   - What if network is slow?
-
-4. **Check UI responsiveness:**
-   - Does it look good?
-   - Are loading states shown?
-   - Are errors displayed properly?
-
-## 📊 Current Status
-
-### ✅ Completed
-- [x] Database schema
-- [x] Authentication (EF + SP)
-- [x] Login functionality
-- [x] Navigation service
-- [x] Base ViewModels
-
-### 🚧 In Progress
-- [x] Citizen Dashboard
-- [ ] Operator Dashboard
-- [ ] Government Dashboard
-
-### 📋 To Do
-- [ ] Citizen waste listing management
-- [ ] Operator collection workflow
-- [ ] Government analytics
-- [ ] Complaint system
-- [ ] Transaction processing
-
-## 🎨 UI Guidelines
-
-### Colors
-- Primary: `#2E7D32` (Green)
-- Success: `#4CAF50`
-- Error: `#EF5350`
-- Warning: `#FFA726`
-- Info: `#2196F3`
-
-### Common UI Components
-
-**Button:**
-```xml
-<Button Content="Submit"
-        Command="{Binding SubmitCommand}"
-        Height="40"
-        Padding="20,0"
-        Background="#2E7D32"
-        Foreground="White"/>
-```
-
-**DataGrid:**
-```xml
-<DataGrid ItemsSource="{Binding Items}"
-          IsReadOnly="True"
-          AutoGenerateColumns="False"
-          GridLinesVisibility="All">
-    <DataGrid.Columns>
-        <DataGridTextColumn Header="ID" Binding="{Binding ListingID}"/>
-        <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
-    </DataGrid.Columns>
-</DataGrid>
-```
-
-**Error Display:**
-```xml
-<Border Background="#FFEBEE"
-        BorderBrush="#EF5350"
-        BorderThickness="1"
-        CornerRadius="5"
-        Padding="10"
-        IsVisible="{Binding ErrorMessage, Converter={x:Static ObjectConverters.IsNotNull}}">
-    <TextBlock Text="{Binding ErrorMessage}"
-               Foreground="#D32F2F"
-               TextWrapping="Wrap"/>
-</Border>
-```
-
-## Common Issues
-
-### Issue: Build fails with XAML errors
-**Solution:** Make sure your `x:DataType` matches your ViewModel class name
-
-### Issue: Binding doesn't work
-**Solution:** Check:
-1. Is `x:DataType` set?
-2. Does property exist in ViewModel?
-3. Is `RaiseAndSetIfChanged` called in setter?
-
-### Issue: Database connection fails
-**Solution:** Check connection string in `appsettings.json`
-
-### Issue: Stored procedure not found
-**Solution:** Run `sql/additional-stored-procedures.sql`
-
-
-
+For historical migration notes, consult `README_REACT.md`. For detailed database behaviour, refer to `../group28_p2.sql` and the scripts under `sql/`.

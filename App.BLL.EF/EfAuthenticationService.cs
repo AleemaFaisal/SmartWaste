@@ -20,11 +20,16 @@ public class EfAuthenticationService : IAuthenticationService
         {
             // Hash the password for comparison
             var passwordHash = HashPassword(password);
+            Console.WriteLine($"EF Login attempt for CNIC: {cnic} with hashed password: {passwordHash} and password: {password}");
 
             // Find user by CNIC and password hash
             var user = await _db.Users
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.UserID == cnic && u.PasswordHash == passwordHash);
+
+            Console.WriteLine(user != null
+                ? $"EF Login successful for user: {user.UserID} with role: {user.Role?.RoleName}"
+                : "EF Login failed: User not found or invalid credentials");
 
             if (user == null)
             {

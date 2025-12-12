@@ -54,7 +54,17 @@ public static class ServiceFactory
     /// </summary>
     public static IOperatorService CreateOperatorService(bool useEf, string connectionString)
     {
-        throw new NotImplementedException("Operator portal is not yet implemented. Only Citizen portal is available.");
+        if (useEf)
+        {
+            // Creates the EF version you provided
+            var dbContext = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlServer(connectionString)
+                .Options;
+            return new EfOperatorService(new AppDbContext(dbContext));
+        }
+        
+        // Fallback to SP version (ensure SpOperatorService exists in App.BLL.SP)
+        return new SpOperatorService(connectionString);
     }
 
     /// <summary>

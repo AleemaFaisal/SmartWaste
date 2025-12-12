@@ -84,6 +84,16 @@ public class WarehouseDepositDto
     public decimal Quantity { get; set; }
 }
 
+public class CollectionResultDto
+{
+    public bool Success { get; set; }
+    public int CollectionID { get; set; }
+    public int? TransactionID { get; set; }
+    public decimal? PaymentAmount { get; set; }
+    public string? VerificationCode { get; set; }
+    public string Message { get; set; } = "";
+}
+
 // ============================================
 // GOVERNMENT DTOs
 // ============================================
@@ -231,4 +241,14 @@ public class OperatorPerformanceReport
     public decimal TotalWeightKg { get; set; }
     public int Complaints { get; set; }
     public string Rating { get; set; } = "";
+}
+
+// ============================================
+// COMPLAINT DTOs
+// ============================================
+
+public class UpdateComplaintDto
+{
+    public int ComplaintID { get; set; }
+    public string Status { get; set; } = ""; // Open, In Progress, Resolved, Closed
 }
