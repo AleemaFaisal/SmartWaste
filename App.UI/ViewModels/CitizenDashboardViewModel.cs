@@ -5,14 +5,32 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using Avalonia.Threading;
+using App.Factory;
+using App.UI.Services;
 
 
 namespace App.UI.ViewModels;
 
 public class CitizenDashboardViewModel : ViewModelBase
 {
-    private readonly ICitizenService _service;
+    private ICitizenService _service;
     private readonly string _citizenID;
+    private readonly string _connectionString;
+    private bool _useEntityFramework;
+
+    // Backend toggle
+    public bool UseEntityFramework
+    {
+        get => _useEntityFramework;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _useEntityFramework, value);
+            _ = SwitchBackendAsync();
+        }
+    }
+
+    public string CurrentBackend => UseEntityFramework ? "Entity Framework (LINQ)" : "Stored Procedures (SQL)";
 
     // Selected category backing field
     private Category? _selectedCategory;
@@ -38,7 +56,7 @@ public class CitizenDashboardViewModel : ViewModelBase
     }
 
     // Collections
-    public ObservableCollection<WasteListing> MyListings { get; } = new();
+    public ObservableCollection<ListingDto> MyListings { get; } = new();
     public ObservableCollection<TransactionRecord> MyTransactions { get; } = new();
     public ObservableCollection<Category> Categories { get; } = new();
     public ObservableCollection<Area> Areas { get; } = new();
@@ -82,12 +100,19 @@ public class CitizenDashboardViewModel : ViewModelBase
     public ReactiveCommand<int, Unit> CancelListingCommand { get; }
     public ReactiveCommand<Unit, Unit> RefreshAllCommand { get; }
 
-    public CitizenDashboardViewModel(ICitizenService service, string citizenID)
+    public CitizenDashboardViewModel(ICitizenService service, string citizenID, string connectionString, bool useEf)
     {
         _service = service;
         _citizenID = citizenID;
+        _connectionString = connectionString;
+        _useEntityFramework = useEf;
 
-        System.Diagnostics.Debug.WriteLine($"CitizenDashboardViewModel created for CitizenID: {citizenID}");
+        // Clear log file for fresh debugging session
+        DebugLogger.ClearLog();
+        DebugLogger.Log($"=== CitizenDashboardViewModel CREATED ===");
+        DebugLogger.Log($"CitizenID: {citizenID}");
+        DebugLogger.Log($"Backend: {(useEf ? "Entity Framework" : "Stored Procedures")}");
+        DebugLogger.Log($"Log file location: {DebugLogger.GetLogFilePath()}");
 
         // Initialize commands
         LoadProfileCommand = ReactiveCommand.CreateFromTask(LoadProfileAsync);
@@ -146,38 +171,71 @@ public class CitizenDashboardViewModel : ViewModelBase
 
     private async Task LoadListingsAsync()
     {
+        DebugLogger.LogSeparator();
+        DebugLogger.Log("LoadListingsAsync START (UI ViewModel)");
+        DebugLogger.Log($"CitizenID: {_citizenID}");
+        DebugLogger.Log($"Current thread ID: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
+        DebugLogger.Log($"MyListings.Count before clear: {MyListings.Count}");
+
         try
         {
-            System.Diagnostics.Debug.WriteLine($"LoadListingsAsync called for CitizenID: {_citizenID}");
+            DebugLogger.Log("Calling _service.GetMyListingsAsync...");
 
             var listings = await _service.GetMyListingsAsync(_citizenID);
 
-            System.Diagnostics.Debug.WriteLine($"Received {listings.Count} listings from service");
+            DebugLogger.Log($"Received {listings.Count} listings from service");
+            DebugLogger.Log($"Thread after await: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
 
-            MyListings.Clear();
-
-            foreach (var listing in listings.OrderByDescending(l => l.CreatedAt))
+            if (listings == null)
             {
-                System.Diagnostics.Debug.WriteLine($"Adding listing: ID={listing.ListingID}, Category={listing.CategoryName}, Weight={listing.Weight}");
-                MyListings.Add(listing);
+                DebugLogger.Log("WARNING: listings is NULL!");
+                return;
             }
 
-            System.Diagnostics.Debug.WriteLine($"MyListings.Count after adding: {MyListings.Count}");
+            // CRITICAL FIX: Ensure UI updates happen on the UI thread
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                DebugLogger.Log("Now on UI thread. Clearing MyListings ObservableCollection...");
+                DebugLogger.Log($"UI thread ID: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
 
-            if (listings.Count == 0)
-            {
-                SuccessMessage = "No listings found. Create your first listing in the 'Sell Waste' tab!";
-            }
-            else
-            {
-                ClearMessages();
-            }
+                MyListings.Clear();
+                DebugLogger.Log($"MyListings cleared. Count: {MyListings.Count}");
+
+                if (listings.Count == 0)
+                {
+                    DebugLogger.Log("No listings to add. Setting success message.");
+                    SuccessMessage = "No listings found. Create your first listing in the 'Sell Waste' tab!";
+                }
+                else
+                {
+                    DebugLogger.Log($"Adding {listings.Count} listings to MyListings ObservableCollection...");
+
+                    int index = 0;
+                    foreach (var listing in listings.OrderByDescending(l => l.CreatedAt))
+                    {
+                        index++;
+                        DebugLogger.Log($"Adding listing #{index}: ID={listing.ListingID}, Category={listing.CategoryName}");
+
+                        MyListings.Add(listing);
+                    }
+
+                    DebugLogger.Log($"All listings added. Final MyListings.Count: {MyListings.Count}");
+                    ClearMessages();
+                }
+            });
+
+            DebugLogger.Log("LoadListingsAsync COMPLETED SUCCESSFULLY");
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"Failed to load listings: {ex.Message}";
-            System.Diagnostics.Debug.WriteLine($"Error loading listings: {ex}");
-            System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+            DebugLogger.Log($"ERROR in LoadListingsAsync: {ex.Message}");
+            DebugLogger.Log($"Exception type: {ex.GetType().Name}");
+            DebugLogger.Log($"Stack trace: {ex.StackTrace}");
+
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                ErrorMessage = $"Failed to load listings: {ex.Message}";
+            });
         }
     }
 
@@ -198,6 +256,12 @@ public class CitizenDashboardViewModel : ViewModelBase
 
     private async Task CreateListingAsync()
     {
+        DebugLogger.LogSeparator();
+        DebugLogger.Log("CreateListingAsync START");
+        DebugLogger.Log($"CitizenID: {_citizenID}");
+        DebugLogger.Log($"SelectedCategoryID: {SelectedCategoryID}");
+        DebugLogger.Log($"Weight: {Weight}");
+
         try
         {
             ClearMessages();
@@ -205,22 +269,26 @@ public class CitizenDashboardViewModel : ViewModelBase
             // Validation
             if (SelectedCategoryID <= 0)
             {
+                DebugLogger.Log("Validation failed: No category selected");
                 ErrorMessage = "Please select a waste category";
                 return;
             }
 
             if (Weight <= 0 || Weight < 0.1m)
             {
+                DebugLogger.Log("Validation failed: Invalid weight");
                 ErrorMessage = "Please enter a valid weight (minimum 0.1 kg)";
                 return;
             }
 
             if (Weight > 1000)
             {
+                DebugLogger.Log("Validation failed: Weight too large");
                 ErrorMessage = "Weight cannot exceed 1000 kg. Please contact support for larger quantities.";
                 return;
             }
 
+            DebugLogger.Log("Validation passed");
             IsBusy = true;
 
             var selectedCategoryName = SelectedCategory?.CategoryName ?? "Unknown";
@@ -233,10 +301,19 @@ public class CitizenDashboardViewModel : ViewModelBase
                 Weight = Weight
             };
 
+            DebugLogger.Log($"Calling _service.CreateWasteListingAsync with DTO:");
+            DebugLogger.Log($"  CitizenID: {listingDto.CitizenID}");
+            DebugLogger.Log($"  CategoryID: {listingDto.CategoryID}");
+            DebugLogger.Log($"  Weight: {listingDto.Weight}");
+
             var listingID = await _service.CreateWasteListingAsync(listingDto);
+
+            DebugLogger.Log($"CreateWasteListingAsync returned ListingID: {listingID}");
 
             if (listingID > 0)
             {
+                DebugLogger.Log("Listing created successfully!");
+
                 // Show success message
                 SuccessMessage = $"✅ Listing created successfully! Your {selectedCategoryName} waste ({Weight:N2} kg) worth Rs. {estimatedAmount:N2} has been listed. An operator will collect it soon.";
 
@@ -246,16 +323,25 @@ public class CitizenDashboardViewModel : ViewModelBase
                 Weight = 0;
                 EstimatedPrice = 0;
 
+                DebugLogger.Log("Form reset. Now refreshing listings...");
+
                 // Refresh listings
                 await LoadListingsAsync();
+
+                DebugLogger.Log("CreateListingAsync COMPLETED SUCCESSFULLY");
             }
             else
             {
+                DebugLogger.Log("ERROR: ListingID was 0 or negative");
                 ErrorMessage = "Failed to create listing. Please try again.";
             }
         }
         catch (Exception ex)
         {
+            DebugLogger.Log($"ERROR in CreateListingAsync: {ex.Message}");
+            DebugLogger.Log($"Exception type: {ex.GetType().Name}");
+            DebugLogger.Log($"Stack trace: {ex.StackTrace}");
+
             ErrorMessage = $"Error creating listing: {ex.Message}";
         }
         finally
@@ -318,5 +404,46 @@ public class CitizenDashboardViewModel : ViewModelBase
         await LoadProfileAsync();
         await LoadListingsAsync();
         await LoadTransactionsAsync();
+    }
+
+    private async Task SwitchBackendAsync()
+    {
+        try
+        {
+            DebugLogger.LogSeparator();
+            DebugLogger.Log($"Switching backend to: {(UseEntityFramework ? "Entity Framework" : "Stored Procedures")}");
+
+            IsBusy = true;
+            SuccessMessage = $"Switching to {CurrentBackend}...";
+
+            // Create new service with the selected backend
+            _service = ServiceFactory.CreateCitizenService(UseEntityFramework, _connectionString);
+
+            DebugLogger.Log("Service recreated. Now refreshing all data...");
+
+            // Refresh all data with new service
+            await RefreshAllDataAsync();
+
+            SuccessMessage = $"Successfully switched to {CurrentBackend}!";
+            DebugLogger.Log("Backend switch completed successfully");
+
+            // Clear success message after 3 seconds
+            _ = Task.Delay(3000).ContinueWith(_ =>
+            {
+                if (SuccessMessage?.Contains("switched") == true)
+                {
+                    Dispatcher.UIThread.InvokeAsync(() => ClearMessages());
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"ERROR switching backend: {ex.Message}");
+            ErrorMessage = $"Failed to switch backend: {ex.Message}";
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }

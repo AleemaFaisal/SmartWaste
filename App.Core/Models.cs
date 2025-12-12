@@ -106,8 +106,8 @@ public class Warehouse
     public string WarehouseName { get; set; } = "";
     public int AreaID { get; set; }
     public string Address { get; set; } = "";
-    public float Capacity { get; set; }
-    public float CurrentInventory { get; set; }
+    public double Capacity { get; set; }
+    public double CurrentInventory { get; set; }
 
     // Navigation properties
     public Area? Area { get; set; }
@@ -120,7 +120,7 @@ public class WarehouseStock
 {
     public int WarehouseID { get; set; }
     public int CategoryID { get; set; }
-    public float CurrentWeight { get; set; }
+    public double CurrentWeight { get; set; }
     public DateTime LastUpdated { get; set; }
 
     // Navigation properties

@@ -52,6 +52,19 @@ public class PriceEstimateDto
     public decimal BasePricePerKg { get; set; }
 }
 
+public class ListingDto
+{
+    public int ListingID { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string CitizenID { get; set; } = "";
+    public int CategoryID { get; set; }
+    public string CategoryName { get; set; } = "";
+    public decimal Weight { get; set; }
+    public string Status { get; set; } = "";
+    public decimal? EstimatedPrice { get; set; }
+    public int? TransactionID { get; set; }
+}
+
 // ============================================
 // OPERATOR DTOs
 // ============================================
@@ -69,6 +82,16 @@ public class WarehouseDepositDto
     public int WarehouseID { get; set; }
     public int CategoryID { get; set; }
     public decimal Quantity { get; set; }
+}
+
+public class CollectionResultDto
+{
+    public bool Success { get; set; }
+    public int CollectionID { get; set; }
+    public int? TransactionID { get; set; }
+    public decimal? PaymentAmount { get; set; }
+    public string? VerificationCode { get; set; }
+    public string Message { get; set; } = "";
 }
 
 // ============================================
@@ -218,4 +241,14 @@ public class OperatorPerformanceReport
     public decimal TotalWeightKg { get; set; }
     public int Complaints { get; set; }
     public string Rating { get; set; } = "";
+}
+
+// ============================================
+// COMPLAINT DTOs
+// ============================================
+
+public class UpdateComplaintDto
+{
+    public int ComplaintID { get; set; }
+    public string Status { get; set; } = ""; // Open, In Progress, Resolved, Closed
 }

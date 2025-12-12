@@ -19,19 +19,66 @@
 
         <!-- Header with better styling -->
         <Border Grid.Row="0" Background="#2E7D32" Padding="25 20">
-            <StackPanel>
-                <TextBlock Text="SmartWaste Citizen Portal"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           Margin="0 0 0 5"/>
-                <TextBlock Text="{Binding Profile.FullName, FallbackValue='Loading profile...'}"
-                           FontSize="16"
-                           Foreground="#E8F5E9"/>
-                <TextBlock Text="{Binding Profile.AreaName, StringFormat='📍 {0}'}"
-                           FontSize="13"
-                           Foreground="#C8E6C9"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- User Info (Left Side) -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="SmartWaste Citizen Portal"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               Margin="0 0 0 5"/>
+                    <TextBlock Text="{Binding Profile.FullName, FallbackValue='Loading profile...'}"
+                               FontSize="16"
+                               Foreground="#E8F5E9"/>
+                    <TextBlock Text="{Binding Profile.AreaName, StringFormat='📍 {0}'}"
+                               FontSize="13"
+                               Foreground="#C8E6C9"/>
+                </StackPanel>
+
+                <!-- Backend Toggle (Right Side) -->
+                <Border Grid.Column="1"
+                        Background="#1B5E20"
+                        CornerRadius="8"
+                        Padding="15 12"
+                        VerticalAlignment="Center"
+                        Margin="20 0 0 0">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Data Backend"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="#A5D6A7"
+                                   HorizontalAlignment="Center"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock Text="{Binding CurrentBackend}"
+                                       FontSize="13"
+                                       FontWeight="Medium"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="180"/>
+                            <ToggleSwitch IsChecked="{Binding UseEntityFramework}"
+                                          OnContent="EF"
+                                          OffContent="SP"
+                                          ToolTip.Tip="Toggle between Entity Framework and Stored Procedures"
+                                          Foreground="White"
+                                          Background="#388E3C"
+                                          VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Text="(Toggle to switch implementation)"
+                                   FontSize="9"
+                                   FontStyle="Italic"
+                                   Foreground="#81C784"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
 
         <!-- Main Content -->
@@ -225,7 +272,7 @@
                             <DataGridTextColumn Header="Date" Binding="{Binding CreatedAt, StringFormat=dd/MM/yyyy}" Width="110"/>
                             <DataGridTemplateColumn Header="Action" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="core:WasteListing">
+                                    <DataTemplate x:DataType="core:ListingDto">
                                         <Button Content="Cancel"
                                                 Command="{Binding $parent[Window].((vm:CitizenDashboardViewModel)DataContext).CancelListingCommand}"
                                                 CommandParameter="{Binding ListingID}"

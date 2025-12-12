@@ -2,6 +2,7 @@ using App.Core;
 using App.BLL.EF;
 using App.BLL.SP;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace App.Factory;
 
@@ -49,40 +50,28 @@ public static class ServiceFactory
     }
 
     /// <summary>
-    /// Create Operator Service
+    /// Create Operator Service (NOT IMPLEMENTED YET)
     /// </summary>
     public static IOperatorService CreateOperatorService(bool useEf, string connectionString)
     {
         if (useEf)
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
+            // Creates the EF version you provided
+            var dbContext = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer(connectionString)
                 .Options;
-
-            return new EfOperatorService(new AppDbContext(options));
+            return new EfOperatorService(new AppDbContext(dbContext));
         }
-        else
-        {
-            return new SpOperatorService(connectionString);
-        }
+        
+        // Fallback to SP version (ensure SpOperatorService exists in App.BLL.SP)
+        return new SpOperatorService(connectionString);
     }
 
     /// <summary>
-    /// Create Government Service
+    /// Create Government Service (NOT IMPLEMENTED YET)
     /// </summary>
     public static IGovernmentService CreateGovernmentService(bool useEf, string connectionString)
     {
-        if (useEf)
-        {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer(connectionString)
-                .Options;
-
-            return new EfGovernmentService(new AppDbContext(options));
-        }
-        else
-        {
-            return new SpGovernmentService(connectionString);
-        }
+        throw new NotImplementedException("Government portal is not yet implemented. Only Citizen portal is available.");
     }
 }
