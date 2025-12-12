@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\db-project\\SmartWaste\\App.UI\\App.UI.csproj": {}
+    "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.UI/App.UI.csproj": {}
   },
   "projects": {
-    "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+    "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj",
+        "projectUniqueName": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj",
         "projectName": "App.BLL.EF",
-        "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\obj\\",
+        "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj",
+        "packagesPath": "/Users/apple/.nuget/packages/",
+        "outputPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/apple/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -26,8 +26,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj"
               }
             }
           }
@@ -61,6 +61,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[10.0.1, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[10.0.1, )"
             }
           },
           "imports": [
@@ -79,21 +83,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+    "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj",
+        "projectUniqueName": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj",
         "projectName": "App.BLL.SP",
-        "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\obj\\",
+        "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj",
+        "packagesPath": "/Users/apple/.nuget/packages/",
+        "outputPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/apple/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -105,8 +109,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj"
               }
             }
           }
@@ -148,21 +152,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+    "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj",
+        "projectUniqueName": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj",
         "projectName": "App.Core",
-        "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "E:\\db-project\\SmartWaste\\App.Core\\obj\\",
+        "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj",
+        "packagesPath": "/Users/apple/.nuget/packages/",
+        "outputPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/apple/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -207,21 +211,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj": {
+    "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
+        "projectUniqueName": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj",
         "projectName": "App.Factory",
-        "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "E:\\db-project\\SmartWaste\\App.Factory\\obj\\",
+        "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj",
+        "packagesPath": "/Users/apple/.nuget/packages/",
+        "outputPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/apple/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -233,14 +237,14 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj"
               },
-              "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj"
               },
-              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj"
               }
             }
           }
@@ -276,21 +280,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\db-project\\SmartWaste\\App.UI\\App.UI.csproj": {
+    "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.UI/App.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.UI\\App.UI.csproj",
+        "projectUniqueName": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.UI/App.UI.csproj",
         "projectName": "App.UI",
-        "projectPath": "E:\\db-project\\SmartWaste\\App.UI\\App.UI.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "E:\\db-project\\SmartWaste\\App.UI\\obj\\",
+        "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.UI/App.UI.csproj",
+        "packagesPath": "/Users/apple/.nuget/packages/",
+        "outputPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.UI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/apple/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -302,17 +306,17 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.EF/App.BLL.EF.csproj"
               },
-              "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/App.BLL.SP.csproj"
               },
-              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Core/App.Core.csproj"
               },
-              "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj": {
-                "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj"
+              "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj": {
+                "projectPath": "/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.Factory/App.Factory.csproj"
               }
             }
           }
@@ -390,7 +394,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -17,7 +17,7 @@ export default function Login({ onLoginSuccess, onShowRegister }) {
       const result = await authAPI.login(cnic, password);
 
       if (result.success) {
-        if (result.user.roleID === 2) {
+        if (result.user.roleID === 2 || result.user.roleID === 1) {
           // Citizen role - proceed
           onLoginSuccess(result.user);
         } else {

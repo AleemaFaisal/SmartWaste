@@ -26,6 +26,11 @@ builder.Services.AddCors(options =>
 
 // Add configuration
 builder.Services.AddSingleton(builder.Configuration);
+builder.Services.AddLogging(config =>
+{
+    config.ClearProviders();
+    config.AddConsole();
+});
 
 var app = builder.Build();
 

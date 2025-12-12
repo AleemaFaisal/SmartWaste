@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import CitizenDashboard from './pages/CitizenDashboard'
 import './App.css'
+import GovernmentDashboard from './pages/GovernmentDashboard'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -48,12 +49,21 @@ function App() {
           />
         )
       ) : (
-        <CitizenDashboard
-          user={user}
-          onLogout={handleLogout}
-          useEF={useEF}
-          onToggleImplementation={toggleImplementation}
-        />
+        user.roleID == 2 ?
+          <CitizenDashboard
+            user={user}
+            onLogout={handleLogout}
+            useEF={useEF}
+            onToggleImplementation={toggleImplementation}
+          />
+          : user.roleID == 1 ?
+            <GovernmentDashboard
+              user={user}
+              onLogout={handleLogout}
+              useEF={useEF}
+              onToggleImplementation={toggleImplementation}
+            />
+            : <div>Role not recognized.</div>
       )}
     </>
   )

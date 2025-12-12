@@ -13,19 +13,20 @@
 /Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/obj/Debug/net9.0/refint/App.BLL.SP.dll
 /Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.pdb
 /Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/obj/Debug/net9.0/ref/App.BLL.SP.dll
-E:\db-project\SmartWaste\App.BLL.SP\bin\Debug\net9.0\App.BLL.SP.deps.json
-E:\db-project\SmartWaste\App.BLL.SP\bin\Debug\net9.0\App.BLL.SP.dll
-E:\db-project\SmartWaste\App.BLL.SP\bin\Debug\net9.0\App.BLL.SP.pdb
-E:\db-project\SmartWaste\App.BLL.SP\bin\Debug\net9.0\App.Core.dll
-E:\db-project\SmartWaste\App.BLL.SP\bin\Debug\net9.0\App.Core.pdb
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.csproj.AssemblyReference.cache
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.GeneratedMSBuildEditorConfig.editorconfig
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.AssemblyInfoInputs.cache
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.AssemblyInfo.cs
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.csproj.CoreCompileInputs.cache
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.sourcelink.json
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.csproj.Up2Date
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.dll
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\refint\App.BLL.SP.dll
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\App.BLL.SP.pdb
-E:\db-project\SmartWaste\App.BLL.SP\obj\Debug\net9.0\ref\App.BLL.SP.dll
+E:/db-project/SmartWaste/App.BLL.SP/bin/Debug/net9.0/App.BLL.SP.deps.json
+E:/db-project/SmartWaste/App.BLL.SP/bin/Debug/net9.0/App.BLL.SP.dll
+E:/db-project/SmartWaste/App.BLL.SP/bin/Debug/net9.0/App.BLL.SP.pdb
+E:/db-project/SmartWaste/App.BLL.SP/bin/Debug/net9.0/App.Core.dll
+E:/db-project/SmartWaste/App.BLL.SP/bin/Debug/net9.0/App.Core.pdb
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.csproj.AssemblyReference.cache
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.GeneratedMSBuildEditorConfig.editorconfig
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.AssemblyInfoInputs.cache
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.AssemblyInfo.cs
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.csproj.CoreCompileInputs.cache
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.sourcelink.json
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.csproj.Up2Date
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.dll
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/refint/App.BLL.SP.dll
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.pdb
+E:/db-project/SmartWaste/App.BLL.SP/obj/Debug/net9.0/ref/App.BLL.SP.dll
+/Users/apple/Desktop/Sem 7/DB/SmartWaste/App.BLL.SP/obj/Debug/net9.0/App.BLL.SP.sourcelink.json

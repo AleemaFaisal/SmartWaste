@@ -66,7 +66,7 @@ public class EfGovernmentService : IGovernmentService
                     TotalListings = reader.GetInt32(3),
                     TotalWeight = reader.GetDecimal(4),
                     TotalRevenue = reader.GetDecimal(5),
-                    RevenueRank = reader.GetInt32(6)
+                    RevenueRank = reader.GetInt64(6)
                 });
             }
         }
@@ -99,8 +99,8 @@ public class EfGovernmentService : IGovernmentService
                     OperatorID = reader.GetString(0),
                     FullName = reader.GetString(1),
                     TotalCollections = reader.GetInt32(2),
-                    TotalWeightKg = reader.GetDecimal(3),
-                    Complaints = reader.GetInt32(4),
+                    TotalWeightKg = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3),
+                    Complaints = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
                     Rating = reader.GetString(5)
                 });
             }
@@ -144,19 +144,34 @@ public class EfGovernmentService : IGovernmentService
         try
         {
             var category = await _db.Categories.FindAsync(categoryID);
+            DebugLogger.LogSeparator();
+            DebugLogger.Log("~~~~~~~~~~~~~~~~~~~~");
+            DebugLogger.Log($"Category fetched for update: {category?.CategoryName ?? "NULL"}");
+            DebugLogger.Log($"New Price: {newPrice}");
+
             if (category == null)
                 return false;
 
             category.BasePricePerKg = newPrice;
-            await _db.SaveChangesAsync();
+            DebugLogger.Log("SAVING CHANGES...");
+            var rows = await _db.Database.ExecuteSqlRawAsync(
+            "UPDATE WasteManagement.Category SET BasePricePerKg = {0} WHERE CategoryID = {1}",
+            newPrice, categoryID
+            );
+            DebugLogger.Log("CHANGES SAVED.");
 
+            return rows > 0;
             // Note: The database trigger will automatically update listing prices
 
-            return true;
         }
-        catch
+        catch (Exception ex)
         {
-            return false;
+            DebugLogger.Log($"Exception: {ex.Message}");
+            if (ex.InnerException != null)
+                DebugLogger.Log($"Inner Exception: {ex.InnerException.Message}");
+            {
+                return false;
+            }
         }
     }
 
@@ -175,7 +190,14 @@ public class EfGovernmentService : IGovernmentService
         }
         catch
         {
+            DebugLogger.Log("Cannot delete category: linked waste listings exist.");
             return false;
+            // DebugLogger.Log($"Exception: {ex.Message}");
+            // if (ex.InnerException != null)
+            //     DebugLogger.Log($"Inner Exception: {ex.InnerException.Message}");
+            // {
+            //     return false;
+            // }
         }
     }
 
@@ -245,13 +267,14 @@ public class EfGovernmentService : IGovernmentService
     {
         try
         {
+            DebugLogger.Log("ASSIGNING ROUTE AND WAREHOUSE TO OPERATOR..., routeID: " + routeID + ", warehouseID: " + warehouseID);
             var op = await _db.Operators.FindAsync(operatorID);
+            DebugLogger.Log("found op: " + (op != null ? op.FullName : "NULL"));
             if (op == null)
                 return false;
 
             op.RouteID = routeID;
             op.WarehouseID = warehouseID;
-
             await _db.SaveChangesAsync();
             return true;
         }
