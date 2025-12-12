@@ -26,7 +26,7 @@ public interface ICitizenService
     /// <summary>
     /// Get all waste listings for a citizen
     /// </summary>
-    Task<List<WasteListing>> GetMyListingsAsync(string citizenID);
+    Task<List<ListingDto>> GetMyListingsAsync(string citizenID);
 
     /// <summary>
     /// Cancel a pending waste listing

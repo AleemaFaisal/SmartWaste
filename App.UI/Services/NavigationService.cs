@@ -21,7 +21,7 @@ namespace App.UI.Services
             if (loginResult.RoleID == 2 && !string.IsNullOrEmpty(loginResult.CitizenID))
             {
                 var service = ServiceFactory.CreateCitizenService(useEF, _connectionString);
-                var viewModel = new CitizenDashboardViewModel(service, loginResult.CitizenID);
+                var viewModel = new CitizenDashboardViewModel(service, loginResult.CitizenID, _connectionString, useEF);
                 var dashboard = new CitizenDashboardWindow { DataContext = viewModel };
 
                 dashboard.Show();

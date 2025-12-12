@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core\App.Core.csproj" />
+    <ProjectReference Include="..\App.Factory\App.Factory.csproj" />
+    <ProjectReference Include="..\App.BLL.EF\App.BLL.EF.csproj" />
+    <ProjectReference Include="..\App.BLL.SP\App.BLL.SP.csproj" />
+  </ItemGroup>
+
+</Project>

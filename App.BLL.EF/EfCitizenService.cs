@@ -83,17 +83,27 @@ public class EfCitizenService : ICitizenService
 
     public async Task<int> CreateWasteListingAsync(CreateListingDto dto)
     {
+        DebugLogger.LogSeparator();
+        DebugLogger.Log("EfCitizenService.CreateWasteListingAsync START");
+        DebugLogger.Log($"DTO - CitizenID: {dto.CitizenID}, CategoryID: {dto.CategoryID}, Weight: {dto.Weight}");
+
         try
         {
+            DebugLogger.Log("Calculating price using database function...");
+
             // Calculate price using database function with proper column alias
             var result = await _db.Database
                 .SqlQueryRaw<decimal>("SELECT WasteManagement.fn_CalculatePrice({0}, {1}) AS Value", dto.CategoryID, dto.Weight)
                 .ToListAsync();
 
             var estimatedPrice = result.FirstOrDefault();
+            DebugLogger.Log($"Estimated price calculated: {estimatedPrice}");
 
             // Set CreatedAt explicitly since it's part of composite key
             var createdAt = DateTime.Now;
+            DebugLogger.Log($"CreatedAt: {createdAt}");
+
+            DebugLogger.Log("Preparing INSERT command...");
 
             // Use a stored procedure-like approach to insert and get ID
             using var command = _db.Database.GetDbConnection().CreateCommand();
@@ -112,52 +122,130 @@ public class EfCitizenService : ICitizenService
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Status", "Pending"));
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@CreatedAt", createdAt));
 
+            DebugLogger.Log("Executing INSERT command...");
+
             await _db.Database.OpenConnectionAsync();
             var scalarResult = await command.ExecuteScalarAsync();
             await _db.Database.CloseConnectionAsync();
 
             var listingId = scalarResult != null ? Convert.ToInt32(scalarResult) : 0;
 
+            DebugLogger.Log($"INSERT successful! ListingID returned: {listingId}");
+            DebugLogger.Log("EfCitizenService.CreateWasteListingAsync COMPLETED");
+
             return listingId;
         }
         catch (Exception ex)
         {
+            DebugLogger.Log($"ERROR in CreateWasteListingAsync: {ex.Message}");
+            DebugLogger.Log($"Stack trace: {ex.StackTrace}");
             throw new InvalidOperationException($"Failed to create waste listing: {ex.Message}", ex);
         }
     }
 
-    public async Task<List<WasteListing>> GetMyListingsAsync(string citizenID)
+    public async Task<List<ListingDto>> GetMyListingsAsync(string citizenID)
     {
-        return await _db.WasteListings
-            .AsNoTracking()
-            .Include(w => w.Category)
-            .Where(w => w.CitizenID == citizenID)
-            .OrderByDescending(w => w.CreatedAt)
-            .ToListAsync();
+        DebugLogger.LogSeparator();
+        DebugLogger.Log($"EfCitizenService.GetMyListingsAsync START");
+        DebugLogger.Log($"CitizenID parameter: '{citizenID}'");
+
+        try
+        {
+            DebugLogger.Log("Executing SQL query...");
+
+            // Use FromSqlRaw to bypass composite key issues, then eagerly load Category
+            var listings = await _db.WasteListings
+                .FromSqlRaw(@"
+                    SELECT
+                        ListingID,
+                        CreatedAt,
+                        CitizenID,
+                        CategoryID,
+                        Weight,
+                        Status,
+                        EstimatedPrice,
+                        TransactionID
+                    FROM WasteManagement.WasteListing
+                    WHERE CitizenID = {0}", citizenID)
+                .AsNoTracking()
+                .Include(w => w.Category)
+                .OrderByDescending(w => w.CreatedAt)
+                .ToListAsync();
+
+            DebugLogger.Log($"Query executed successfully. Returned {listings.Count} listings");
+
+            // Map to DTOs to avoid circular reference issues
+            var listingDtos = listings.Select(l => new ListingDto
+            {
+                ListingID = l.ListingID,
+                CreatedAt = l.CreatedAt,
+                CitizenID = l.CitizenID,
+                CategoryID = l.CategoryID,
+                CategoryName = l.Category?.CategoryName ?? "",
+                Weight = l.Weight,
+                Status = l.Status,
+                EstimatedPrice = l.EstimatedPrice,
+                TransactionID = l.TransactionID
+            }).ToList();
+
+            if (listingDtos.Count == 0)
+            {
+                DebugLogger.Log("WARNING: No listings found for this CitizenID");
+            }
+            else
+            {
+                DebugLogger.Log("Listing details:");
+                foreach (var listing in listingDtos)
+                {
+                    DebugLogger.Log($"  - ListingID: {listing.ListingID}");
+                    DebugLogger.Log($"    CitizenID: {listing.CitizenID}");
+                    DebugLogger.Log($"    CategoryID: {listing.CategoryID}");
+                    DebugLogger.Log($"    CategoryName: {listing.CategoryName}");
+                    DebugLogger.Log($"    Weight: {listing.Weight}");
+                    DebugLogger.Log($"    Status: {listing.Status}");
+                    DebugLogger.Log($"    EstimatedPrice: {listing.EstimatedPrice}");
+                    DebugLogger.Log($"    CreatedAt: {listing.CreatedAt}");
+                }
+            }
+
+            DebugLogger.Log("EfCitizenService.GetMyListingsAsync COMPLETED");
+            return listingDtos;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"ERROR in GetMyListingsAsync: {ex.Message}");
+            DebugLogger.Log($"Stack trace: {ex.StackTrace}");
+            throw;
+        }
     }
 
     public async Task<bool> CancelListingAsync(int listingID, string citizenID)
     {
+        DebugLogger.LogSeparator();
+        DebugLogger.Log($"EfCitizenService.CancelListingAsync START");
+        DebugLogger.Log($"ListingID: {listingID}, CitizenID: '{citizenID}'");
+
         try
         {
-            // Find the listing (need to query without knowing CreatedAt for partitioned table)
-            var listing = await _db.WasteListings
-                .FirstOrDefaultAsync(w => w.ListingID == listingID && w.CitizenID == citizenID);
+            // Use raw SQL to update status - avoids composite key issues with EF change tracking
+            var rowsAffected = await _db.Database.ExecuteSqlRawAsync(
+                @"UPDATE WasteManagement.WasteListing
+                  SET Status = 'Cancelled'
+                  WHERE ListingID = {0} AND CitizenID = {1} AND Status = 'Pending'",
+                listingID, citizenID);
 
-            if (listing == null)
+            if (rowsAffected == 0)
+            {
+                DebugLogger.Log("ERROR: No rows affected - listing not found, doesn't belong to citizen, or not in Pending status");
                 return false;
+            }
 
-            // Only allow cancellation of pending listings
-            if (listing.Status != "Pending")
-                return false;
-
-            listing.Status = "Cancelled";
-            await _db.SaveChangesAsync();
-
+            DebugLogger.Log($"SUCCESS: Listing cancelled - {rowsAffected} row(s) updated");
             return true;
         }
-        catch
+        catch (Exception ex)
         {
+            DebugLogger.Log($"ERROR in CancelListingAsync: {ex.Message}");
             return false;
         }
     }

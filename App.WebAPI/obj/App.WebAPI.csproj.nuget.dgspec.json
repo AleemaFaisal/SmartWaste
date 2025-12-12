@@ -1,0 +1,359 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj": {}
+  },
+  "projects": {
+    "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj",
+        "projectName": "App.BLL.EF",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj",
+        "projectName": "App.BLL.SP",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[6.1.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj",
+        "projectName": "App.Core",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
+        "projectName": "App.Factory",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.Factory\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
+              },
+              "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
+              },
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj",
+        "projectName": "App.WebAPI",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.WebAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
+              },
+              "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
+              },
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
+              },
+              "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

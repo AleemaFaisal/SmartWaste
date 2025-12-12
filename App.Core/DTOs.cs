@@ -52,6 +52,19 @@ public class PriceEstimateDto
     public decimal BasePricePerKg { get; set; }
 }
 
+public class ListingDto
+{
+    public int ListingID { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string CitizenID { get; set; } = "";
+    public int CategoryID { get; set; }
+    public string CategoryName { get; set; } = "";
+    public decimal Weight { get; set; }
+    public string Status { get; set; } = "";
+    public decimal? EstimatedPrice { get; set; }
+    public int? TransactionID { get; set; }
+}
+
 // ============================================
 // OPERATOR DTOs
 // ============================================

@@ -60,77 +60,116 @@ public class SpCitizenService : ICitizenService
 
     public async Task<int> CreateWasteListingAsync(CreateListingDto dto)
     {
-        using var conn = new SqlConnection(_connectionString);
-        using var cmd = new SqlCommand("WasteManagement.sp_CreateWasteListing", conn)
+        DebugLogger.LogSeparator();
+        DebugLogger.Log($"SpCitizenService.CreateWasteListingAsync START");
+        DebugLogger.Log($"CitizenID: {dto.CitizenID}, CategoryID: {dto.CategoryID}, Weight: {dto.Weight}");
+
+        try
         {
-            CommandType = CommandType.StoredProcedure
-        };
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand("WasteManagement.sp_CreateWasteListing", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-        cmd.Parameters.AddWithValue("@CitizenID", dto.CitizenID);
-        cmd.Parameters.AddWithValue("@CategoryID", dto.CategoryID);
-        cmd.Parameters.AddWithValue("@Weight", dto.Weight);
+            cmd.Parameters.AddWithValue("@CitizenID", dto.CitizenID);
+            cmd.Parameters.AddWithValue("@CategoryID", dto.CategoryID);
+            cmd.Parameters.AddWithValue("@Weight", dto.Weight);
 
-        var listingIDParam = new SqlParameter("@ListingID", SqlDbType.Int)
+            var listingIDParam = new SqlParameter("@ListingID", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+            var estimatedPriceParam = new SqlParameter("@EstimatedPrice", SqlDbType.Decimal)
+            {
+                Direction = ParameterDirection.Output,
+                Precision = 10,
+                Scale = 2
+            };
+
+            cmd.Parameters.Add(listingIDParam);
+            cmd.Parameters.Add(estimatedPriceParam);
+
+            DebugLogger.Log("Executing sp_CreateWasteListing...");
+            await conn.OpenAsync();
+            await cmd.ExecuteNonQueryAsync();
+
+            var listingID = (int)listingIDParam.Value;
+            var estimatedPrice = (decimal)estimatedPriceParam.Value;
+
+            DebugLogger.Log($"SUCCESS: Listing created with ID={listingID}, EstimatedPrice={estimatedPrice}");
+            DebugLogger.Log("SpCitizenService.CreateWasteListingAsync COMPLETED");
+
+            return listingID;
+        }
+        catch (Exception ex)
         {
-            Direction = ParameterDirection.Output
-        };
-        var estimatedPriceParam = new SqlParameter("@EstimatedPrice", SqlDbType.Decimal)
-        {
-            Direction = ParameterDirection.Output,
-            Precision = 10,
-            Scale = 2
-        };
-
-        cmd.Parameters.Add(listingIDParam);
-        cmd.Parameters.Add(estimatedPriceParam);
-
-        await conn.OpenAsync();
-        await cmd.ExecuteNonQueryAsync();
-
-        return (int)listingIDParam.Value;
+            DebugLogger.Log($"ERROR in SpCitizenService.CreateWasteListingAsync: {ex.Message}");
+            DebugLogger.Log($"Stack trace: {ex.StackTrace}");
+            throw;
+        }
     }
 
-    public async Task<List<WasteListing>> GetMyListingsAsync(string citizenID)
+    public async Task<List<ListingDto>> GetMyListingsAsync(string citizenID)
     {
-        var listings = new List<WasteListing>();
+        DebugLogger.LogSeparator();
+        DebugLogger.Log($"SpCitizenService.GetMyListingsAsync START");
+        DebugLogger.Log($"CitizenID parameter: '{citizenID}'");
 
-        using var conn = new SqlConnection(_connectionString);
-        using var cmd = new SqlCommand("WasteManagement.sp_GetCitizenListings", conn)
+        var listings = new List<ListingDto>();
+
+        try
         {
-            CommandType = CommandType.StoredProcedure
-        };
-
-        cmd.Parameters.AddWithValue("@CitizenID", citizenID);
-
-        await conn.OpenAsync();
-        using var reader = await cmd.ExecuteReaderAsync();
-
-        while (await reader.ReadAsync())
-        {
-            listings.Add(new WasteListing
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand("WasteManagement.sp_GetCitizenListings", conn)
             {
-                ListingID = reader.GetInt32(reader.GetOrdinal("ListingID")),
-                CitizenID = reader.GetString(reader.GetOrdinal("CitizenID")),
-                CategoryID = reader.GetInt32(reader.GetOrdinal("CategoryID")),
-                Weight = reader.GetDecimal(reader.GetOrdinal("Weight")),
-                Status = reader.GetString(reader.GetOrdinal("Status")),
-                EstimatedPrice = reader.IsDBNull(reader.GetOrdinal("EstimatedPrice"))
-                    ? null
-                    : reader.GetDecimal(reader.GetOrdinal("EstimatedPrice")),
-                TransactionID = reader.IsDBNull(reader.GetOrdinal("TransactionID"))
-                    ? null
-                    : reader.GetInt32(reader.GetOrdinal("TransactionID")),
-                CreatedAt = reader.GetDateTime(reader.GetOrdinal("CreatedAt")),
-                Category = new Category
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@CitizenID", citizenID);
+
+            DebugLogger.Log("Opening connection and executing stored procedure...");
+            await conn.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            DebugLogger.Log("Reading results from stored procedure...");
+            int rowCount = 0;
+            while (await reader.ReadAsync())
+            {
+                rowCount++;
+                var listing = new ListingDto
                 {
+                    ListingID = reader.GetInt32(reader.GetOrdinal("ListingID")),
+                    CitizenID = reader.GetString(reader.GetOrdinal("CitizenID")),
                     CategoryID = reader.GetInt32(reader.GetOrdinal("CategoryID")),
                     CategoryName = reader.GetString(reader.GetOrdinal("CategoryName")),
-                    BasePricePerKg = reader.GetDecimal(reader.GetOrdinal("BasePricePerKg"))
-                }
-            });
-        }
+                    Weight = reader.GetDecimal(reader.GetOrdinal("Weight")),
+                    Status = reader.GetString(reader.GetOrdinal("Status")),
+                    EstimatedPrice = reader.IsDBNull(reader.GetOrdinal("EstimatedPrice"))
+                        ? null
+                        : reader.GetDecimal(reader.GetOrdinal("EstimatedPrice")),
+                    TransactionID = reader.IsDBNull(reader.GetOrdinal("TransactionID"))
+                        ? null
+                        : reader.GetInt32(reader.GetOrdinal("TransactionID")),
+                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
+                };
 
-        return listings;
+                DebugLogger.Log($"Row {rowCount}: ListingID={listing.ListingID}, Category={listing.CategoryName}, Status={listing.Status}");
+                listings.Add(listing);
+            }
+
+            DebugLogger.Log($"SP returned {rowCount} listings");
+            DebugLogger.Log($"Final listings count: {listings.Count}");
+            DebugLogger.Log("SpCitizenService.GetMyListingsAsync COMPLETED");
+
+            return listings;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"ERROR in SpCitizenService.GetMyListingsAsync: {ex.Message}");
+            DebugLogger.Log($"Stack trace: {ex.StackTrace}");
+            throw;
+        }
     }
 
     public async Task<bool> CancelListingAsync(int listingID, string citizenID)
