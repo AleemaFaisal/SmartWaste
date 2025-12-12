@@ -65,8 +65,15 @@ public static class ServiceFactory
         if (useEf)
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer(connectionString)
-                .Options;
+                .UseSqlServer(connectionString, sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,              // number of retries
+                        maxRetryDelay: TimeSpan.FromSeconds(10), // wait between retries
+                        errorNumbersToAdd: null        // additional SQL error codes
+                    );
+                })
+            .Options;
 
             return new EfGovernmentService(new AppDbContext(options));
         }

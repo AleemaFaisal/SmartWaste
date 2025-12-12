@@ -104,7 +104,7 @@ public class SpGovernmentService : IGovernmentService
                 TotalListings = reader.GetInt32(3),
                 TotalWeight = reader.GetDecimal(4),
                 TotalRevenue = reader.GetDecimal(5),
-                RevenueRank = reader.GetInt32(6)
+                RevenueRank = reader.GetInt64(6)
             });
         }
 
