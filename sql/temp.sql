@@ -45,7 +45,8 @@ GO
 
 SELECT UserID, roleID, PasswordHash 
 FROM WasteManagement.Users
-WHERE UserID = '42000-0300001-0';
+-- WHERE UserID = '42000-0300001-0';
+
 
 
 USE SmartWasteDB;

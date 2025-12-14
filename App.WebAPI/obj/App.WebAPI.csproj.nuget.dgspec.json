@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.WebAPI/App.WebAPI.csproj": {}
+    "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj": {}
   },
   "projects": {
-    "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
+    "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj",
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj",
         "projectName": "App.BLL.EF",
-        "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj",
-        "packagesPath": "/Users/muhammadahmadkashif/.nuget/packages/",
-        "outputPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/obj/",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammadahmadkashif/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -26,8 +26,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj"
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
               }
             }
           }
@@ -79,21 +79,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
+    "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj",
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj",
         "projectName": "App.BLL.SP",
-        "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj",
-        "packagesPath": "/Users/muhammadahmadkashif/.nuget/packages/",
-        "outputPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/obj/",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammadahmadkashif/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -105,8 +105,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj"
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
               }
             }
           }
@@ -148,21 +148,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj": {
+    "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj",
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj",
         "projectName": "App.Core",
-        "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj",
-        "packagesPath": "/Users/muhammadahmadkashif/.nuget/packages/",
-        "outputPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/obj/",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammadahmadkashif/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -207,21 +207,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Factory/App.Factory.csproj": {
+    "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Factory/App.Factory.csproj",
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
         "projectName": "App.Factory",
-        "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Factory/App.Factory.csproj",
-        "packagesPath": "/Users/muhammadahmadkashif/.nuget/packages/",
-        "outputPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Factory/obj/",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.Factory\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammadahmadkashif/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -233,14 +233,14 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj"
+              "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
               },
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj"
+              "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
               },
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj"
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
               }
             }
           }
@@ -276,21 +276,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.WebAPI/App.WebAPI.csproj": {
+    "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.WebAPI/App.WebAPI.csproj",
+        "projectUniqueName": "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj",
         "projectName": "App.WebAPI",
-        "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.WebAPI/App.WebAPI.csproj",
-        "packagesPath": "/Users/muhammadahmadkashif/.nuget/packages/",
-        "outputPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.WebAPI/obj/",
+        "projectPath": "E:\\db-project\\SmartWaste\\App.WebAPI\\App.WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "E:\\db-project\\SmartWaste\\App.WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammadahmadkashif/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -302,17 +302,17 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.EF/App.BLL.EF.csproj"
+              "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.EF\\App.BLL.EF.csproj"
               },
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.BLL.SP/App.BLL.SP.csproj"
+              "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.BLL.SP\\App.BLL.SP.csproj"
               },
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Core/App.Core.csproj"
+              "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Core\\App.Core.csproj"
               },
-              "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Factory/App.Factory.csproj": {
-                "projectPath": "/Users/muhammadahmadkashif/Desktop/DB/Proj/SmartWaste/App.Factory/App.Factory.csproj"
+              "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj": {
+                "projectPath": "E:\\db-project\\SmartWaste\\App.Factory\\App.Factory.csproj"
               }
             }
           }
@@ -351,7 +351,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

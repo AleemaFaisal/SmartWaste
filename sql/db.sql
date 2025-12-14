@@ -1041,7 +1041,7 @@ BEGIN
         CAST(((@CitizenCounter - 1) % 10) AS VARCHAR(1));
     
     INSERT INTO WasteManagement.Users (UserID, PasswordHash, RoleID)
-    VALUES (@CNIC, HASHBYTES('SHA2_256', 'password' + CAST(@CitizenCounter AS VARCHAR(10))), 2);
+    VALUES (@CNIC, CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'password' + CAST(@CitizenCounter AS VARCHAR(10))), 2), 2);
     
     INSERT INTO WasteManagement.Citizen (CitizenID, FullName, PhoneNumber, AreaID, Address)
     VALUES (@CNIC, 'Citizen ' + CAST(@CitizenCounter AS VARCHAR(10)),
@@ -1063,7 +1063,8 @@ BEGIN
         CAST(((@OpCounter - 1) % 10) AS VARCHAR(1));
     
     INSERT INTO WasteManagement.Users (UserID, PasswordHash, RoleID)
-    VALUES (@OpCNIC, HASHBYTES('SHA2_256', 'oppass' + CAST(@OpCounter AS VARCHAR(10))), 3);
+    
+    VALUES (@OpCNIC, CONVERT(VARCHAR(64),HASHBYTES('SHA2_256', 'oppass' + CAST(@OpCounter AS VARCHAR(10))),2), 3);
     
     INSERT INTO WasteManagement.Operator (OperatorID, FullName, PhoneNumber, RouteID, WarehouseID, Status)
     VALUES (@OpCNIC, 'Operator ' + CAST(@OpCounter AS VARCHAR(10)),
