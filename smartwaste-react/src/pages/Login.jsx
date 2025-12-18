@@ -17,17 +17,17 @@ export default function Login({ onLoginSuccess, onShowRegister }) {
       const result = await authAPI.login(cnic, password);
 
       if (result.success) {
-        // --- UPDATED LOGIC HERE ---
-        // Allow Citizen (2) AND Operator (3)
-        // Also normalizing 'roleName' to 'role' for App.jsx routing
+        // Support all roles: Government (1), Citizen (2), and Operator (3)
+        // Normalize 'roleName' to 'role' for App.jsx routing
         const roleName = result.user.roleName || result.user.role;
         const roleId = result.user.roleID || result.user.roleId;
 
-        if (roleId === 2 || roleId === 3 || roleName === 'Operator' || roleName === 'Citizen') {
-            const userData = { ...result.user, role: roleName }; // Ensure 'role' property exists for App.jsx
-            onLoginSuccess(userData);
+        if (roleId === 1 || roleId === 2 || roleId === 3 ||
+            roleName === 'Government' || roleName === 'Citizen' || roleName === 'Operator') {
+          const userData = { ...result.user, role: roleName }; // Ensure 'role' property exists for App.jsx
+          onLoginSuccess(userData);
         } else {
-            setError(`Portal for ${roleName} (Role ${roleId}) is not yet implemented.`);
+          setError(`Portal for ${roleName} (Role ${roleId}) is not yet implemented.`);
         }
       } else {
         setError(result.message || 'Invalid credentials');
@@ -79,11 +79,16 @@ export default function Login({ onLoginSuccess, onShowRegister }) {
         {/* --- UPDATED TEST CREDENTIALS --- */}
         <div className="test-credentials">
           <h3>Test Credentials:</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', textAlign: 'left' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', textAlign: 'left' }}>
             <div>
               <p className="role-badge citizen">👤 Citizen</p>
               <p><strong>CNIC:</strong> 35201-0000001-0</p>
               <p><strong>Pass:</strong> password1</p>
+            </div>
+            <div>
+              <p className="role-badge government">🏛️ Government</p>
+              <p><strong>CNIC:</strong> (check DB)</p>
+              <p><strong>Pass:</strong> (check DB)</p>
             </div>
             <div>
               <p className="role-badge operator">🚛 Operator</p>

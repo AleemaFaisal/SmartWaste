@@ -68,10 +68,28 @@ public static class ServiceFactory
     }
 
     /// <summary>
-    /// Create Government Service (NOT IMPLEMENTED YET)
+    /// Create Government Service
     /// </summary>
     public static IGovernmentService CreateGovernmentService(bool useEf, string connectionString)
     {
-        throw new NotImplementedException("Government portal is not yet implemented. Only Citizen portal is available.");
+        if (useEf)
+        {
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlServer(connectionString, sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,              // number of retries
+                        maxRetryDelay: TimeSpan.FromSeconds(10), // wait between retries
+                        errorNumbersToAdd: null        // additional SQL error codes
+                    );
+                })
+            .Options;
+
+            return new EfGovernmentService(new AppDbContext(options));
+        }
+        else
+        {
+            return new SpGovernmentService(connectionString);
+        }
     }
 }

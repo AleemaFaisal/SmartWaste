@@ -109,8 +109,7 @@ public class CreateOperatorDto
 
 public class UpdateCategoryPriceDto
 {
-    public int CategoryID { get; set; }
-    public decimal NewBasePricePerKg { get; set; }
+    public decimal NewPrice { get; set; }
 }
 
 public class CreateCategoryDto
@@ -161,10 +160,10 @@ public class WarehouseInventoryView
     public string WarehouseName { get; set; } = "";
     public string AreaName { get; set; } = "";
     public string City { get; set; } = "";
-    public float Capacity { get; set; }
-    public float CurrentInventory { get; set; }
+    public double Capacity { get; set; }
+    public double CurrentInventory { get; set; }
     public double CapacityUsedPercent { get; set; }
-    public float AvailableCapacity { get; set; }
+    public double AvailableCapacity { get; set; }
     public int CategoryCount { get; set; }
 }
 
@@ -230,7 +229,7 @@ public class HighYieldAreaReport
     public int TotalListings { get; set; }
     public decimal TotalWeight { get; set; }
     public decimal TotalRevenue { get; set; }
-    public int RevenueRank { get; set; }
+    public long RevenueRank { get; set; }
 }
 
 public class OperatorPerformanceReport
