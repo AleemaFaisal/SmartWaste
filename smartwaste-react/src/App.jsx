@@ -1,74 +1,10 @@
-// import { useState } from 'react'
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import OperatorDashboard from "./pages/OperatorDashboard";
-// import Login from './pages/Login'
-// import Register from './pages/Register'
-// import CitizenDashboard from './pages/CitizenDashboard'
-// import './App.css'
-
-// function App() {
-//   const [user, setUser] = useState(null)
-//   const [showRegister, setShowRegister] = useState(false)
-//   const [useEF, setUseEF] = useState(true) // true = EF, false = SP
-
-//   const handleLoginSuccess = (userData) => {
-//     setUser(userData)
-//   }
-
-//   const handleLogout = () => {
-//     setUser(null)
-//   }
-
-//   const toggleImplementation = () => {
-//     setUseEF(!useEF)
-//   }
-
-//   const handleShowRegister = () => {
-//     setShowRegister(true)
-//   }
-
-//   const handleBackToLogin = () => {
-//     setShowRegister(false)
-//   }
-
-//   const handleRegisterSuccess = () => {
-//     setShowRegister(false)
-//   }
-
-//   return (
-//     <>
-//       {!user ? (
-//         showRegister ? (
-//           <Register
-//             onRegisterSuccess={handleRegisterSuccess}
-//             onBackToLogin={handleBackToLogin}
-//           />
-//         ) : (
-//           <Login
-//             onLoginSuccess={handleLoginSuccess}
-//             onShowRegister={handleShowRegister}
-//           />
-//         )
-//       ) : (
-//         <CitizenDashboard
-//           user={user}
-//           onLogout={handleLogout}
-//           useEF={useEF}
-//           onToggleImplementation={toggleImplementation}
-//         />
-//       )}
-//     </>
-//   )
-// }
-
-// export default App
-
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import OperatorDashboard from "./pages/OperatorDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CitizenDashboard from "./pages/CitizenDashboard";
+import GovernmentDashboard from './pages/GovernmentDashboard';
 import { setBackendPreference } from "./services/api";
 import "./App.css";
 
@@ -124,7 +60,13 @@ function App() {
                 <Login onLoginSuccess={setUser} />
               ) : (
                 <Navigate
-                  to={user.role === "Operator" ? "/operator" : "/citizen"}
+                  to={
+                    user.role === "Operator" || user.role === "Admin"
+                      ? "/operator"
+                      : user.role === "Government" || user.roleID === 1
+                      ? "/government"
+                      : "/citizen"
+                  }
                 />
               )
             }
@@ -136,7 +78,13 @@ function App() {
                 <Login onLoginSuccess={setUser} />
               ) : (
                 <Navigate
-                  to={user.role === "Operator" ? "/operator" : "/citizen"}
+                  to={
+                    user.role === "Operator" || user.role === "Admin"
+                      ? "/operator"
+                      : user.role === "Government" || user.roleID === 1
+                      ? "/government"
+                      : "/citizen"
+                  }
                 />
               )
             }
@@ -150,8 +98,24 @@ function App() {
           <Route
             path="/citizen"
             element={
-              user && user.role === "Citizen" ? (
+              user && (user.role === "Citizen" || user.roleID === 2) ? (
                 <CitizenDashboard
+                  user={user}
+                  onLogout={() => setUser(null)}
+                  useEF={useEF}
+                  onToggleImplementation={toggleImplementation}
+                />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+
+          <Route
+            path="/government"
+            element={
+              user && (user.role === "Government" || user.roleID === 1) ? (
+                <GovernmentDashboard
                   user={user}
                   onLogout={() => setUser(null)}
                   useEF={useEF}
@@ -166,7 +130,6 @@ function App() {
           <Route
             path="/operator"
             element={
-              // Check if user exists AND is an Operator
               user && (user.role === "Operator" || user.role === "Admin") ? (
                 <OperatorDashboard
                   user={user}

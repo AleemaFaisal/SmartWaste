@@ -41,10 +41,10 @@ public class SpGovernmentService : IGovernmentService
                 WarehouseName = reader.GetString(reader.GetOrdinal("WarehouseName")),
                 AreaName = reader.GetString(reader.GetOrdinal("AreaName")),
                 City = reader.GetString(reader.GetOrdinal("City")),
-                Capacity = reader.GetFloat(reader.GetOrdinal("Capacity")),
-                CurrentInventory = reader.GetFloat(reader.GetOrdinal("CurrentInventory")),
+                Capacity = reader.GetDouble(reader.GetOrdinal("Capacity")),
+                CurrentInventory = reader.GetDouble(reader.GetOrdinal("CurrentInventory")),
                 CapacityUsedPercent = reader.GetDouble(reader.GetOrdinal("CapacityUsedPercent")),
-                AvailableCapacity = reader.GetFloat(reader.GetOrdinal("AvailableCapacity")),
+                AvailableCapacity = reader.GetDouble(reader.GetOrdinal("AvailableCapacity")),
                 CategoryCount = reader.GetInt32(reader.GetOrdinal("CategoryCount"))
             });
         }
@@ -73,8 +73,8 @@ public class SpGovernmentService : IGovernmentService
                 WarehouseName = reader.GetString(reader.GetOrdinal("WarehouseName")),
                 AreaID = reader.GetInt32(reader.GetOrdinal("AreaID")),
                 Address = reader.GetString(reader.GetOrdinal("Address")),
-                Capacity = reader.GetFloat(reader.GetOrdinal("Capacity")),
-                CurrentInventory = reader.GetFloat(reader.GetOrdinal("CurrentInventory"))
+                Capacity = reader.GetDouble(reader.GetOrdinal("Capacity")),
+                CurrentInventory = reader.GetDouble(reader.GetOrdinal("CurrentInventory"))
             });
         }
 
@@ -104,7 +104,7 @@ public class SpGovernmentService : IGovernmentService
                 TotalListings = reader.GetInt32(3),
                 TotalWeight = reader.GetDecimal(4),
                 TotalRevenue = reader.GetDecimal(5),
-                RevenueRank = reader.GetInt32(6)
+                RevenueRank = reader.GetInt64(6)
             });
         }
 

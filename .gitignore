@@ -1,6 +1,6 @@
 # Ignore .NET build output
-bin/
-obj/
+**/bin/
+**/obj/
 *.dll
 *.pdb
 *.exe
