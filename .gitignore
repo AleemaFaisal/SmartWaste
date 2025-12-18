@@ -1,0 +1,7 @@
+# Ignore .NET build output
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.deps.json
